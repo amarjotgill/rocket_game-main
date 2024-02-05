@@ -154,7 +154,7 @@ def start_menu():
 
         # Draw the button
         pygame.draw.rect(WINDOW, WHITE, button_rect)
-        menu_text = menu_font.render("Start Game", True, BLACK)
+        menu_text = menu_font.render("Begin Game", True, BLACK)
         text_rect = menu_text.get_rect(center=button_rect.center)
         WINDOW.blit(menu_text, text_rect)
 
