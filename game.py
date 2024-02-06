@@ -15,6 +15,8 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 RED = (255, 0, 0)
 YELLOW = (255, 255, 0)
+PURPLE = (128, 0, 128)
+GREEN = (0, 255, 0)
 CANT_CROSS = pygame.Rect(500, 10, 10, 800)
 
 # creating event to detect bullet hitting
@@ -42,12 +44,84 @@ RED_SPACESHIP_SiZE = pygame.transform.rotate(pygame.transform.scale(RED_SPACESHI
 
 SPACE_BACKGROUND = pygame.transform.scale(pygame.image.load("space3.jpg"), (WIDTH, HEIGHT))
 SPACE2_BACKGROUND = pygame.transform.scale(pygame.image.load("space2.jpeg"), (WIDTH, HEIGHT))
+SPACE3_BACKGROUND = pygame.transform.scale(pygame.image.load("space4.png"), (WIDTH, HEIGHT))
+BLACK_BACKGROUND = pygame.transform.scale(pygame.image.load("black_screen.png"), (WIDTH, HEIGHT))
 
+def get_player_names():
+    player1_name = ""
+    player2_name = ""
+    font = pygame.font.SysFont("Times New Roman", 40)
+    label1 = font.render("Player 1 Name: ", True, WHITE)
+    label2 = font.render("Player 2 Name: ", True, WHITE)
 
+    # width, height, box dimensions
+    input_box1 = pygame.Rect(WIDTH // 2, HEIGHT // 2 - 50, 350, 60)
+    input_box2 = pygame.Rect(WIDTH // 2, HEIGHT // 2 + 50, 350, 60)    
+    color_inactive = pygame.Color(RED)
+    color_active = pygame.Color(GREEN)
+    color = color_inactive
+    active = 0
+    text1 = ''
+    text2 = ''
+    input_names = False  # Flag to determine when to exit the loop
+
+    while not input_names:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if input_box1.collidepoint(event.pos):
+                    active = 1
+                elif input_box2.collidepoint(event.pos):
+                    active = 2
+                else:
+                    active = 0
+                color = color_active if active else color_inactive
+            if event.type == pygame.KEYDOWN:
+                if active == 1:
+                    if event.key == pygame.K_RETURN:
+                        player1_name = text1
+                        active = 0
+                        input_names = True  # Set the flag to exit the loop
+                    elif event.key == pygame.K_BACKSPACE:
+                        text1 = text1[:-1]
+                    else:
+                        text1 += event.unicode
+                elif active == 2:
+                    if event.key == pygame.K_RETURN:
+                        player2_name = text2
+                        active = 0
+                        input_names = True  # Set the flag to exit the loop
+                    elif event.key == pygame.K_BACKSPACE:
+                        text2 = text2[:-1]
+                    else:
+                        text2 += event.unicode
+
+        WINDOW.fill((30, 30, 30))
+        WINDOW.blit(label1, (WIDTH // 2 - label1.get_width() - 10, HEIGHT // 2 - 50))
+        WINDOW.blit(label2, (WIDTH // 2 - label2.get_width() - 10, HEIGHT // 2 + 50))
+        txt_surface1 = font.render(text1, True, color)
+        width = max(200, txt_surface1.get_width()+10)
+        input_box1.w = width
+        WINDOW.blit(txt_surface1, (input_box1.x+5, input_box1.y+5))
+        pygame.draw.rect(WINDOW, color, input_box1, 2)
+
+        txt_surface2 = font.render(text2, True, color)
+        width = max(200, txt_surface2.get_width()+10)
+        input_box2.w = width
+        WINDOW.blit(txt_surface2, (input_box2.x+5, input_box2.y+5))
+        pygame.draw.rect(WINDOW, color, input_box2, 2)
+
+        pygame.display.flip()
+
+    return player1_name, player2_name
+    
 # draws the game onto the window
 def draw_game(player1, player2, player1_bullets, player2_bullets, player1_health, player2_health):
     # how to get background
     WINDOW.blit(SPACE_BACKGROUND, (0, 0))
+    
     # border in middle
     pygame.draw.rect(WINDOW, BLACK, CANT_CROSS)
     red_health_text = HEALTH_FONT.render("Health:" + str(player1_health), True, WHITE)
@@ -126,16 +200,19 @@ def shoot_bullet(player2_bullets, player1_bullets, player2, player1):
         elif bullet.x < 0:
             player1_bullets.remove(bullet)
 
-
+            
 def winner_of_game(text):
+    #set screen to black
+    WINDOW.blit(BLACK_BACKGROUND, (0, 0))
     draw = END_FONT.render(text, True, WHITE)
     WINDOW.blit(draw, (WIDTH / 2 - draw.get_width() / 2, HEIGHT / 2 - draw.get_height() / 2))
     pygame.display.update()
-    pygame.time.delay(500)
+    pygame.time.delay(2500)
+
 
 def start_menu():
    
-    menu_font = pygame.font.SysFont("comicsans", 25)
+    menu_font = pygame.font.SysFont("Times New Roman", 25)
     button_rect = pygame.Rect(WIDTH // 2 - 100, HEIGHT // 2 - 50, 200, 100)
 
     while True:
@@ -150,7 +227,7 @@ def start_menu():
                         return  # Exit the start menu if the button is clicked
 
         # Clear the screen
-        WINDOW.blit(SPACE2_BACKGROUND, (0, 0))
+        WINDOW.blit(SPACE3_BACKGROUND, (0, 0))
 
         # Draw the button
         pygame.draw.rect(WINDOW, WHITE, button_rect)
@@ -165,7 +242,7 @@ def start_menu():
         pygame.time.Clock().tick(FPS)
 
 
-def run_game(player1_bullets, player2_bullets, player1_health, player2_health, game_status, clock, player1, player2):
+def run_game(player1_bullets, player2_bullets, player1_health, player2_health, game_status, clock, player1, player2, player1_name, player2_name):
     while game_status:
         # control for 60 fps
         clock.tick(FPS)
@@ -190,10 +267,10 @@ def run_game(player1_bullets, player2_bullets, player1_health, player2_health, g
                 player2_health -= 1
         winner = ""
         if player1_health <= 0:
-            winner = "Player2 wins!"
+            winner = f"{player1_name} wins!"
 
         if player2_health <= 0:
-            winner = "Player1 wins!"
+            winner = f"{player2_name} wins!"
 
         if winner != "":
             winner_of_game(winner)
@@ -213,6 +290,7 @@ def run_game(player1_bullets, player2_bullets, player1_health, player2_health, g
 
 def main():
     start_menu()
+    player1_name, player2_name = get_player_names()
     # creates the hit boxes for both player1 and player2
     player1 = pygame.Rect(700, 300, CHARACTER_WIDTH, CHARACTER_HEIGHT)
     player2 = pygame.Rect(100, 300, CHARACTER_WIDTH, CHARACTER_HEIGHT)
@@ -222,12 +300,12 @@ def main():
 
     player1_bullets = []
     player2_bullets = []
-    # base health
-    player1_health = 10
-    player2_health = 10
+    # base health (adjusted to 1 for testing)
+    player1_health = 1
+    player2_health = 1
 
 
-    run_game(player1_bullets, player2_bullets, player1_health, player2_health, game_status, clock, player1, player2)
+    run_game(player1_bullets, player2_bullets, player1_health, player2_health, game_status, clock, player1, player2, player1_name, player2_name)
     # reruns game after someone wins
     main()
 
