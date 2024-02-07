@@ -213,6 +213,7 @@ def winner_of_game(text):
 def start_menu():
    
     menu_font = pygame.font.SysFont("Times New Roman", 25)
+    menu_font2 = pygame.font.SysFont("Times New Roman", 70)
     button_rect = pygame.Rect(WIDTH // 2 - 100, HEIGHT // 2 - 50, 200, 100)
 
     while True:
@@ -228,6 +229,11 @@ def start_menu():
 
         # Clear the screen
         WINDOW.blit(SPACE3_BACKGROUND, (0, 0))
+
+        # Display "Rocket Battle!" at the top of the screen
+        title_text = menu_font2.render("Welcome to Rocket Battle!", True, WHITE)
+        title_rect = title_text.get_rect(center=(WIDTH // 2, 50))
+        WINDOW.blit(title_text, title_rect)
 
         # Draw the button
         pygame.draw.rect(WINDOW, WHITE, button_rect)
@@ -267,10 +273,10 @@ def run_game(player1_bullets, player2_bullets, player1_health, player2_health, g
                 player2_health -= 1
         winner = ""
         if player1_health <= 0:
-            winner = f"{player1_name} wins!"
+            winner = f"{player2_name} wins!"
 
         if player2_health <= 0:
-            winner = f"{player2_name} wins!"
+            winner = f"{player1_name} wins!"
 
         if winner != "":
             winner_of_game(winner)
