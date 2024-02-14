@@ -142,6 +142,7 @@ def draw_game(player1, player2, player1_bullets, player2_bullets, player1_health
 
 
 def move_player2(keys_pressed, player2):
+    # left
     if keys_pressed[pygame.K_a]:
         if player2.x - VELOCITY > 0:
             player2.x -= VELOCITY
@@ -163,15 +164,12 @@ def move_player1(keys_pressed, player1):
     if keys_pressed[pygame.K_LEFT]:
         if player1.x - VELOCITY > CANT_CROSS.x:
             player1.x -= VELOCITY
-    # right
     if keys_pressed[pygame.K_RIGHT]:
         if player1.x + VELOCITY + player1.width < WIDTH:
             player1.x += VELOCITY
-    # up
     if keys_pressed[pygame.K_UP]:
         if player1.y - VELOCITY > 0:
             player1.y -= VELOCITY
-    # down
     if keys_pressed[pygame.K_DOWN]:
         if player1.y + VELOCITY + player1.height < HEIGHT - 15:
             player1.y += VELOCITY
@@ -202,12 +200,32 @@ def shoot_bullet(player2_bullets, player1_bullets, player2, player1):
 
             
 def winner_of_game(text):
-    #set screen to black
+    # Set screen to black
     WINDOW.blit(BLACK_BACKGROUND, (0, 0))
     draw = END_FONT.render(text, True, WHITE)
     WINDOW.blit(draw, (WIDTH / 2 - draw.get_width() / 2, HEIGHT / 2 - draw.get_height() / 2))
+
+    # Draw restart button
+    button_rect = pygame.Rect(WIDTH // 2 - 100, HEIGHT // 2 + 100, 200, 100)
+    pygame.draw.rect(WINDOW, WHITE, button_rect)
+    menu_font = pygame.font.SysFont("Times New Roman", 25)
+    menu_text = menu_font.render("Play Again?", True, BLACK)
+    text_rect = menu_text.get_rect(center=button_rect.center)
+    WINDOW.blit(menu_text, text_rect)
     pygame.display.update()
-    pygame.time.delay(2500)
+
+    restart = False
+    while not restart:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1: 
+                    if button_rect.collidepoint(event.pos):
+                        # Restart the game if the button is clicked
+                        restart = True 
+                        
 
 
 def start_menu():
@@ -310,11 +328,8 @@ def main():
     player1_health = 1
     player2_health = 1
 
-
     run_game(player1_bullets, player2_bullets, player1_health, player2_health, game_status, clock, player1, player2, player1_name, player2_name)
-    # reruns game after someone wins
-    main()
-
+   
 
 if __name__ == "__main__":
     main()
