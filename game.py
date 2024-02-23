@@ -35,21 +35,41 @@ WINDOW = pygame.display.set_mode((WIDTH, HEIGHT))
 # text at top
 pygame.display.set_caption("Rocket Battle!")
 
-
-YELLOW_SPACESHIP = pygame.image.load("spaceship_yellow.png")
+try:
+    YELLOW_SPACESHIP = pygame.image.load("spaceship_yellow.png")
+except pygame.error as e:
+    print("Error Loading YELLOW_SPACESHIP")
 YELLOW_SPACESHIP_SiZE = pygame.transform.rotate(pygame.transform.scale(YELLOW_SPACESHIP, (55, 40)), 90)
-
-RED_SPACESHIP = pygame.image.load("spaceship_red.png")
+try:
+    RED_SPACESHIP = pygame.image.load("spaceship_red.png")
+except pygame.error as e:
+    print("Error Loading RED_SPACESHIP")
 RED_SPACESHIP_SiZE = pygame.transform.rotate(pygame.transform.scale(RED_SPACESHIP, (55, 40)), 270)
 
-SPACE_BACKGROUND = pygame.transform.scale(pygame.image.load("space3.jpg"), (WIDTH, HEIGHT))
-SPACE2_BACKGROUND = pygame.transform.scale(pygame.image.load("space2.jpeg"), (WIDTH, HEIGHT))
-SPACE3_BACKGROUND = pygame.transform.scale(pygame.image.load("space4.png"), (WIDTH, HEIGHT))
+try:
+    SPACE_BACKGROUND = pygame.transform.scale(pygame.image.load("space3.jpg"), (WIDTH, HEIGHT))
+except pygame.error as e:
+    print("Error Loading SPACE_BACKGROUND")
+try:
+    SPACE2_BACKGROUND = pygame.transform.scale(pygame.image.load("space2.jpeg"), (WIDTH, HEIGHT))
+except pygame.error as e:
+    print("Error Loading SPACE2_BACKGROUND")
+try:
+    SPACE3_BACKGROUND = pygame.transform.scale(pygame.image.load("space4.png"), (WIDTH, HEIGHT))
+except pygame.error as e:
+    print("Error Loading SPACE3_BACKGROUND")
 try:
     SPACE4_BACKGROUND = pygame.transform.scale(pygame.image.load("space.png"), (WIDTH, HEIGHT))
 except pygame.error as e:
     print("Error Loading SPACE4_BACKGROUND", e)
-BLACK_BACKGROUND = pygame.transform.scale(pygame.image.load("black_screen.png"), (WIDTH, HEIGHT))
+try:
+    START_BUTTON = pygame.transform.scale(pygame.image.load("start_button.jpeg"), (WIDTH, HEIGHT))
+except pygame.error as e:
+    print("Error Loading START_BUTTON", e)
+try:
+    BLACK_BACKGROUND = pygame.transform.scale(pygame.image.load("black_screen.png"), (WIDTH, HEIGHT))
+except pygame.error as e:
+    print("Error Loading BLACK_BACKGROUND", e)
 
 class Game:
     player1 = pygame.Rect(700, 300, CHARACTER_WIDTH, CHARACTER_HEIGHT)
