@@ -45,6 +45,10 @@ RED_SPACESHIP_SiZE = pygame.transform.rotate(pygame.transform.scale(RED_SPACESHI
 SPACE_BACKGROUND = pygame.transform.scale(pygame.image.load("space3.jpg"), (WIDTH, HEIGHT))
 SPACE2_BACKGROUND = pygame.transform.scale(pygame.image.load("space2.jpeg"), (WIDTH, HEIGHT))
 SPACE3_BACKGROUND = pygame.transform.scale(pygame.image.load("space4.png"), (WIDTH, HEIGHT))
+try:
+    SPACE4_BACKGROUND = pygame.transform.scale(pygame.image.load("space.png"), (WIDTH, HEIGHT))
+except pygame.error as e:
+    print("Error Loading SPACE4_BACKGROUND", e)
 BLACK_BACKGROUND = pygame.transform.scale(pygame.image.load("black_screen.png"), (WIDTH, HEIGHT))
 
 class Game:
@@ -55,13 +59,12 @@ class Game:
     game_status = True
     player1_bullets = []
     player2_bullets = []
-    clock = pygame.time.Clock()
-    # base health (adjusted to 1 for testing)
     player1_health = 1
     player2_health = 1
- 
+    clock = pygame.time.Clock()
+
     def __init__(self):
-       return
+        return
       
     def restart_game(self):
         self.game_status = True
@@ -73,12 +76,34 @@ class Game:
         self.player2_health = 10
         self.run_game(self)
 
+    @staticmethod
+    def draw_button(x, label):
+        button_rect = pygame.Rect(x, BUTTON_Y, BUTTON_WIDTH, BUTTON_HEIGHT)
+        pygame.draw.rect(screen, GRAY, button_rect)
+        text = font.render(label, True, BLACK)
+        text_rect = text.get_rect(center=button_rect.center)
+        screen.blit(text, text_rect)
+
+    @staticmethod
+    def set_player1_health(self):
+        BUTTON_WIDTH = 100
+        BUTTON_HEIGHT = 50
+        BUTTON_SPACING = 20
+        #draw_button(WIDTH // 2 - BUTTON_WIDTH - BUTTON_SPACING, '5')
+        #draw_button(WIDTH // 2, '10')
+        #draw_button(WIDTH // 2 + BUTTON_WIDTH + BUTTON_SPACING, '15')
+        return 7
+        
+
     def get_player_names(self):
         player1_name = ""
         player2_name = ""
         font = pygame.font.SysFont("Times New Roman", 40)
         label1 = font.render("Player 1 Name: ", True, WHITE)
         label2 = font.render("Player 2 Name: ", True, WHITE)
+
+        #background image for name input screen
+        WINDOW.blit(SPACE4_BACKGROUND, (0, 0))
 
         # width, height, box dimensions
         input_box1 = pygame.Rect(WIDTH // 2, HEIGHT // 2 - 50, 350, 60)
@@ -89,7 +114,7 @@ class Game:
         active = 0
         text1 = ''
         text2 = ''
-        input_names = False  # Flag to determine when to exit the loop
+        input_names = False  # flag to determine when to exit the loop
 
         while not input_names:
             for event in pygame.event.get():
@@ -124,7 +149,7 @@ class Game:
                         else:
                             text2 += event.unicode
 
-            WINDOW.fill((30, 30, 30))
+            #WINDOW.fill((30, 30, 30))
             WINDOW.blit(label1, (WIDTH // 2 - label1.get_width() - 10, HEIGHT // 2 - 50))
             WINDOW.blit(label2, (WIDTH // 2 - label2.get_width() - 10, HEIGHT // 2 + 50))
             txt_surface1 = font.render(text1, True, color)
@@ -143,14 +168,16 @@ class Game:
 
         self.player1_name = player1_name
         self.player2_name = player2_name
-
+        
+        self.player1_health = self.set_player1_health(self)
+        self.player2_health = self.set_player1_health(self)
         self.run_game(self)
         return
         
     # draws the game onto the window
     def draw_game(self):
         # how to get background
-        WINDOW.blit(SPACE_BACKGROUND, (0, 0))
+        WINDOW.blit(SPACE2_BACKGROUND, (0, 0))
         
         # border in middle
         pygame.draw.rect(WINDOW, BLACK, CANT_CROSS)
