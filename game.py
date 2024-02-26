@@ -63,10 +63,6 @@ try:
 except pygame.error as e:
     print("Error Loading SPACE4_BACKGROUND", e)
 try:
-    START_BUTTON = pygame.transform.scale(pygame.image.load("start_button.jpeg"), (WIDTH, HEIGHT))
-except pygame.error as e:
-    print("Error Loading START_BUTTON", e)
-try:
     BLACK_BACKGROUND = pygame.transform.scale(pygame.image.load("black_screen.png"), (WIDTH, HEIGHT))
 except pygame.error as e:
     print("Error Loading BLACK_BACKGROUND", e)
@@ -114,7 +110,6 @@ class Game:
         #draw_button(WIDTH // 2 + BUTTON_WIDTH + BUTTON_SPACING, '15')
         return 7
         
-
     def get_player_names(self):
         player1_name = ""
         player2_name = ""
@@ -301,9 +296,16 @@ class Game:
                             self.restart_game(self) 
                             
     def start_menu(self):
+        try:
+            START_BUTTON = pygame.transform.scale(pygame.image.load("start2_button.jpeg"), (WIDTH, HEIGHT))
+        except pygame.error as e:
+            print("Error Loading START2_BUTTON", e)
         menu_font = pygame.font.SysFont("Times New Roman", 25)
         menu_font2 = pygame.font.SysFont("Times New Roman", 70)
         button_rect = pygame.Rect(WIDTH // 2 - 100, HEIGHT // 2 - 50, 200, 100)
+
+        # adjusting size of img to fit rect
+        START_BUTTON = pygame.transform.scale(START_BUTTON, (button_rect.width, button_rect.height))
 
         while True:
             for event in pygame.event.get():
@@ -325,16 +327,15 @@ class Game:
             WINDOW.blit(title_text, title_rect)
 
             # Draw the button
-            pygame.draw.rect(WINDOW, WHITE, button_rect)
-            menu_text = menu_font.render("Begin Game", True, BLACK)
-            text_rect = menu_text.get_rect(center=button_rect.center)
-            WINDOW.blit(menu_text, text_rect)
+            WINDOW.blit(START_BUTTON, button_rect)
 
             # Update display
             pygame.display.flip()
 
             # Cap the frame rate
             pygame.time.Clock().tick(FPS)
+
+
 
 
     def run_game(self):
@@ -373,9 +374,7 @@ class Game:
             keys_pressed = pygame.key.get_pressed()
             self.move_player2(self,keys_pressed)
             self.move_player1(self,keys_pressed)
-
             self.shoot_bullet(self)
-
             self.draw_game(self)
 
 def main():
