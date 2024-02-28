@@ -1,6 +1,7 @@
 """
-This is a simple rocket battle game that I have made, the game ends when one user's health is under 10.
-The game will restart it's self after a 5 second delay, to quit the game press the exit button in the top right corner.
+Authors:
+- Yusuf Sattar
+- Amarjot Gill
 """
 
 import sys
@@ -66,6 +67,14 @@ try:
     BLACK_BACKGROUND = pygame.transform.scale(pygame.image.load("black_screen.png"), (WIDTH, HEIGHT))
 except pygame.error as e:
     print("Error Loading BLACK_BACKGROUND", e)
+try:
+    BACKGROUND = pygame.transform.scale(pygame.image.load("background.jpeg"), (WIDTH, HEIGHT))
+except pygame.error as e:
+    print("Error Loading BACKGROUND")
+try:
+    BLACK_HOLE = pygame.transform.scale(pygame.image.load("black_hole.jpeg"), (WIDTH, HEIGHT))
+except pygame.error as e:
+    print("Error Loading BLACK_HOLE")
 
 class Game:
     player1 = pygame.Rect(700, 300, CHARACTER_WIDTH, CHARACTER_HEIGHT)
@@ -105,9 +114,6 @@ class Game:
         BUTTON_WIDTH = 100
         BUTTON_HEIGHT = 50
         BUTTON_SPACING = 20
-        #draw_button(WIDTH // 2 - BUTTON_WIDTH - BUTTON_SPACING, '5')
-        #draw_button(WIDTH // 2, '10')
-        #draw_button(WIDTH // 2 + BUTTON_WIDTH + BUTTON_SPACING, '15')
         return 7
         
     def get_player_names(self):
@@ -129,7 +135,7 @@ class Game:
         active = 0
         text1 = ''
         text2 = ''
-        input_names = False  # flag to determine when to exit the loop
+        input_names = False  # flag to stop lop
 
         while not input_names:
             for event in pygame.event.get():
@@ -149,7 +155,7 @@ class Game:
                         if event.key == pygame.K_RETURN:
                             player1_name = text1
                             active = 0
-                            input_names = True  # Set the flag to exit the loop
+                            input_names = True  # Adjusting flag val
                         elif event.key == pygame.K_BACKSPACE:
                             text1 = text1[:-1]
                         else:
@@ -158,13 +164,12 @@ class Game:
                         if event.key == pygame.K_RETURN:
                             player2_name = text2
                             active = 0
-                            input_names = True  # Set the flag to exit the loop
+                            input_names = True  # Adjusting flag val
                         elif event.key == pygame.K_BACKSPACE:
                             text2 = text2[:-1]
                         else:
                             text2 += event.unicode
 
-            #WINDOW.fill((30, 30, 30))
             WINDOW.blit(label1, (WIDTH // 2 - label1.get_width() - 10, HEIGHT // 2 - 50))
             WINDOW.blit(label2, (WIDTH // 2 - label2.get_width() - 10, HEIGHT // 2 + 50))
             txt_surface1 = font.render(text1, True, color)
@@ -178,7 +183,6 @@ class Game:
             input_box2.w = width
             WINDOW.blit(txt_surface2, (input_box2.x+5, input_box2.y+5))
             pygame.draw.rect(WINDOW, color, input_box2, 2)
-
             pygame.display.flip()
 
         self.player1_name = player1_name
@@ -319,7 +323,7 @@ class Game:
                             self.get_player_names(self)
                             return  # Exit the start menu if the button is clicked
             # Clear the screen
-            WINDOW.blit(SPACE3_BACKGROUND, (0, 0))
+            WINDOW.blit(BLACK_HOLE, (0, 0))
 
             # Display "Rocket Battle!" at the top of the screen
             title_text = menu_font2.render("Welcome to Rocket Battle!", True, WHITE)
