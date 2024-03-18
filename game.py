@@ -64,6 +64,18 @@ try:
 except pygame.error as e:
     print("Error Loading SPACE4_BACKGROUND", e)
 try:
+    SPACE5_BACKGROUND = pygame.transform.scale(pygame.image.load("space5.png"), (WIDTH, HEIGHT))
+except pygame.error as e:
+    print("Error Loading SPACE5_BACKGROUND", e)
+try:
+    SPACE6_BACKGROUND = pygame.transform.scale(pygame.image.load("space6.png"), (WIDTH, HEIGHT))
+except pygame.error as e:
+    print("Error Loading SPACE6_BACKGROUND", e)
+try:
+    SPACE7_BACKGROUND = pygame.transform.scale(pygame.image.load("space7.png"), (WIDTH, HEIGHT))
+except pygame.error as e:
+    print("Error Loading SPACE7_BACKGROUND", e)
+try:
     BLACK_BACKGROUND = pygame.transform.scale(pygame.image.load("black_screen.png"), (WIDTH, HEIGHT))
 except pygame.error as e:
     print("Error Loading BLACK_BACKGROUND", e)
@@ -76,6 +88,11 @@ try:
 except pygame.error as e:
     print("Error Loading BLACK_HOLE")
 
+try:
+    BACKGROUND_SELECTION = pygame.transform.scale(pygame.image.load("background_selection.png"), (WIDTH, HEIGHT))
+except pygame.error as e:
+    print("Error Loading BACKGROUND_SELECTION")
+
 class Game:
     player1 = pygame.Rect(700, 300, CHARACTER_WIDTH, CHARACTER_HEIGHT)
     player2 = pygame.Rect(100, 300, CHARACTER_WIDTH, CHARACTER_HEIGHT)
@@ -86,6 +103,7 @@ class Game:
     player2_bullets = []
     player1_health = 1
     player2_health = 1
+    current_background = SPACE2_BACKGROUND
     clock = pygame.time.Clock()
 
     def __init__(self):
@@ -99,7 +117,7 @@ class Game:
         # base health (adjusted to 1 for testing)
         self.player1_health = 10
         self.player2_health = 10
-        self.run_game(self)
+        self.select_background(self)
 
     @staticmethod
     def draw_button(x, label):
@@ -190,13 +208,13 @@ class Game:
         
         self.player1_health = self.set_player1_health(self)
         self.player2_health = self.set_player1_health(self)
-        self.run_game(self)
+        self.select_background(self)
         return
         
     # draws the game onto the window
     def draw_game(self):
         # how to get background
-        WINDOW.blit(SPACE2_BACKGROUND, (0, 0))
+        WINDOW.blit(self.current_background, (0, 0))
         
         # border in middle
         pygame.draw.rect(WINDOW, BLACK, CANT_CROSS)
@@ -278,12 +296,20 @@ class Game:
         WINDOW.blit(draw, (WIDTH / 2 - draw.get_width() / 2, HEIGHT / 2 - draw.get_height() / 2))
 
         # Draw restart button
-        button_rect = pygame.Rect(WIDTH // 2 - 100, HEIGHT // 2 + 100, 200, 100)
-        pygame.draw.rect(WINDOW, WHITE, button_rect)
+        restart_button = pygame.Rect(WIDTH // 2 - 100, HEIGHT // 2 + 100, 200, 100)
+        pygame.draw.rect(WINDOW, WHITE, restart_button)
         menu_font = pygame.font.SysFont("Times New Roman", 25)
         menu_text = menu_font.render("Play Again?", True, BLACK)
-        text_rect = menu_text.get_rect(center=button_rect.center)
+        text_rect = menu_text.get_rect(center=restart_button.center)
         WINDOW.blit(menu_text, text_rect)
+        pygame.display.update()
+
+        quit_button = pygame.Rect(WIDTH // 2 - 100, HEIGHT // 2 + 250, 200, 100)
+        pygame.draw.rect(WINDOW, WHITE, quit_button)
+        quit_menu_font = pygame.font.SysFont("Times New Roman", 25)
+        quit_menu_text = quit_menu_font.render("Quit Game", True, BLACK)
+        quit_text_rect = quit_menu_text.get_rect(center=quit_button.center)
+        WINDOW.blit(quit_menu_text, quit_text_rect)
         pygame.display.update()
 
         restart = False
@@ -294,10 +320,14 @@ class Game:
                     sys.exit()
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if event.button == 1: 
-                        if button_rect.collidepoint(event.pos):
-                            # Restart the game if the button is clicked
+                        if restart_button.collidepoint(event.pos):
+                            # Restart the game if the restart button is clicked
                             restart = True
-                            self.restart_game(self) 
+                            self.restart_game(self)
+                        elif quit_button.collidepoint(event.pos):
+                            # Quit the game if the quit button is clicked
+                            pygame.quit()
+                            sys.exit()
                             
     def start_menu(self):
         try:
@@ -339,8 +369,83 @@ class Game:
             # Cap the frame rate
             pygame.time.Clock().tick(FPS)
 
+    def select_background(self):
+        WINDOW.blit(BACKGROUND_SELECTION, (0, 0))
+         # background selection buttons
+        button_1 = pygame.Rect(WIDTH // 2 - 350, HEIGHT // 2 - 130, 150, 50)
+        pygame.draw.rect(WINDOW, WHITE, button_1)
+        menu_font = pygame.font.SysFont("Times New Roman", 25)
+        menu_text = menu_font.render("Background 1", True, BLACK)
+        text_rect = menu_text.get_rect(center=button_1.center)
+        WINDOW.blit(menu_text, text_rect)
+        pygame.display.update()
 
+        button_2 = pygame.Rect(WIDTH // 2 + 150, HEIGHT // 2 - 130, 150, 50)
+        pygame.draw.rect(WINDOW, WHITE, button_2)
+        menu_font = pygame.font.SysFont("Times New Roman", 25)
+        menu_text = menu_font.render("Background 2", True, BLACK)
+        text_rect = menu_text.get_rect(center=button_2.center)
+        WINDOW.blit(menu_text, text_rect)
+        pygame.display.update()
 
+        button_3 = pygame.Rect(WIDTH // 2 - 350, HEIGHT // 2 + 90, 150, 50)
+        pygame.draw.rect(WINDOW, WHITE, button_3)
+        menu_font = pygame.font.SysFont("Times New Roman", 25)
+        menu_text = menu_font.render("Background 3", True, BLACK)
+        text_rect = menu_text.get_rect(center=button_3.center)
+        WINDOW.blit(menu_text, text_rect)
+        pygame.display.update()
+
+        button_4 = pygame.Rect(WIDTH // 2 + 150, HEIGHT // 2 + 90, 150, 50)
+        pygame.draw.rect(WINDOW, WHITE, button_4)
+        menu_font = pygame.font.SysFont("Times New Roman", 25)
+        menu_text = menu_font.render("Background 4", True, BLACK)
+        text_rect = menu_text.get_rect(center=button_4.center)
+        WINDOW.blit(menu_text, text_rect)
+        pygame.display.update()
+
+        button_5 = pygame.Rect(WIDTH // 2 - 350, HEIGHT // 2 + 310, 150, 50)
+        pygame.draw.rect(WINDOW, WHITE, button_5)
+        menu_font = pygame.font.SysFont("Times New Roman", 25)
+        menu_text = menu_font.render("Background 5", True, BLACK)
+        text_rect = menu_text.get_rect(center=button_5.center)
+        WINDOW.blit(menu_text, text_rect)
+        pygame.display.update()
+
+        button_6 = pygame.Rect(WIDTH // 2 + 150, HEIGHT // 2 + 310, 150, 50)
+        pygame.draw.rect(WINDOW, WHITE, button_6)
+        menu_font = pygame.font.SysFont("Times New Roman", 25)
+        menu_text = menu_font.render("Background 6", True, BLACK)
+        text_rect = menu_text.get_rect(center=button_6.center)
+        WINDOW.blit(menu_text, text_rect)
+        pygame.display.update()
+
+        selected = False
+        while not selected:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if event.button == 1: 
+                        if button_1.collidepoint(event.pos):
+                            self.current_background = SPACE_BACKGROUND
+                            self.run_game(self)
+                        elif button_2.collidepoint(event.pos):
+                            self.current_background = SPACE4_BACKGROUND
+                            self.run_game(self)
+                        elif button_3.collidepoint(event.pos):
+                            self.current_background = SPACE2_BACKGROUND
+                            self.run_game(self)
+                        elif button_4.collidepoint(event.pos):
+                            self.current_background = SPACE5_BACKGROUND
+                            self.run_game(self)
+                        elif button_5.collidepoint(event.pos):
+                            self.current_background = SPACE6_BACKGROUND
+                            self.run_game(self)
+                        elif button_6.collidepoint(event.pos):
+                            self.current_background = SPACE7_BACKGROUND
+                            self.run_game(self)
 
     def run_game(self):
         while True:
