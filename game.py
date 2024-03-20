@@ -209,6 +209,7 @@ class Game:
         self.player1_health = self.set_player1_health(self)
         self.player2_health = self.set_player1_health(self)
         self.select_background(self)
+        #add call to how to play screen here 
         return
         
     # draws the game onto the window
@@ -337,6 +338,7 @@ class Game:
         menu_font = pygame.font.SysFont("Times New Roman", 25)
         menu_font2 = pygame.font.SysFont("Times New Roman", 70)
         button_rect = pygame.Rect(WIDTH // 2 - 100, HEIGHT // 2 - 50, 200, 100)
+        how_to_play_rect = pygame.Rect(WIDTH // 2 - 100, HEIGHT // 2 + 100, 200, 50)
 
         # adjusting size of img to fit rect
         START_BUTTON = pygame.transform.scale(START_BUTTON, (button_rect.width, button_rect.height))
@@ -352,6 +354,10 @@ class Game:
                         if button_rect.collidepoint(event.pos):
                             self.get_player_names(self)
                             return  # Exit the start menu if the button is clicked
+                        elif how_to_play_rect.collidepoint(event.pos):
+                            return
+                            #add call to how to play function
+                            
             # Clear the screen
             WINDOW.blit(BLACK_HOLE, (0, 0))
 
@@ -362,12 +368,21 @@ class Game:
 
             # Draw the button
             WINDOW.blit(START_BUTTON, button_rect)
+            
+            # Draw hwo to play button
+            pygame.draw.rect(WINDOW, PURPLE, how_to_play_rect)
+            how_to_play_text = menu_font.render("How to Play", True, WHITE)
+            how_to_play_text_rect = how_to_play_text.get_rect(center=how_to_play_rect.center)
+            WINDOW.blit(how_to_play_text, how_to_play_text_rect)
 
             # Update display
             pygame.display.flip()
 
             # Cap the frame rate
             pygame.time.Clock().tick(FPS)
+
+    def how_to_play(self):
+        pass
 
     def select_background(self):
         WINDOW.blit(BACKGROUND_SELECTION, (0, 0))
