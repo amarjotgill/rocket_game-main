@@ -18,6 +18,7 @@ RED = (255, 0, 0)
 YELLOW = (255, 255, 0)
 PURPLE = (128, 0, 128)
 GREEN = (0, 255, 0)
+SPACE_COLORS = [(0, 10, 20), (20, 0, 40), (50, 0, 70), (20, 0, 40), (0, 10, 20)]
 CANT_CROSS = pygame.Rect(500, 10, 10, 800)
 
 # creating event to detect bullet hitting
@@ -75,6 +76,10 @@ try:
     SPACE7_BACKGROUND = pygame.transform.scale(pygame.image.load("space7.png"), (WIDTH, HEIGHT))
 except pygame.error as e:
     print("Error Loading SPACE7_BACKGROUND", e)
+try:
+    SPACE8_BACKGROUND = pygame.transform.scale(pygame.image.load("space8.png"), (WIDTH, HEIGHT))
+except pygame.error as e:
+    print("Erro Loading SPACE8_BACKGROUND", e)
 try:
     BLACK_BACKGROUND = pygame.transform.scale(pygame.image.load("black_screen.png"), (WIDTH, HEIGHT))
 except pygame.error as e:
@@ -348,15 +353,14 @@ class Game:
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
-
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if event.button == 1:  # Left mouse button
                         if button_rect.collidepoint(event.pos):
                             self.get_player_names(self)
-                            return  # Exit the start menu if the button is clicked
+                            return  
                         elif how_to_play_rect.collidepoint(event.pos):
+                            self.how_to_play(self)
                             return
-                            #add call to how to play function
                             
             # Clear the screen
             WINDOW.blit(BLACK_HOLE, (0, 0))
@@ -382,8 +386,40 @@ class Game:
             pygame.time.Clock().tick(FPS)
 
     def how_to_play(self):
-        pass
-
+#        background = space_background(self, WIDTH, HEIGHT, SPACE_COLORS)
+#        WINDOW.blit(surface, (0, 0))
+        WINDOW.fill(BLACK)
+        instruction_font = pygame.font.SysFont("Times New Roman", 30)
+        instruction_text = [
+            "How To Play:",
+            "1 - Enter Player 1 & Player 2's Names",
+            "2 - Select a Background for the Match",
+            "3 - Player 1 Uses the WADS keys to Move & Shift to Fire",
+            "4 - Player 2 Uses the Arrow Keys to Move & Spacebar to Fire",
+            "5 - Each Player has 10 Health",
+            "Press Any Key to Return to Main Menu"
+        ]     
+        text_offset = 50
+        window_center_x = WIDTH // 2
+        window_center_y = HEIGHT // 2.75
+        for line in instruction_text:
+            text_surface = instruction_font.render(line, True, PURPLE)
+            text_rect = text_surface.get_rect(center = (window_center_x, window_center_y + text_offset))
+            WINDOW.blit(text_surface, text_rect)
+            text_offset += 50
+        pygame.display.flip()
+        
+        #exit screen functionality
+        active = True
+        while active:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                if event.type == pygame.KEYDOWN:
+                    active = False
+                    self.start_menu(self)
+    
     def select_background(self):
         WINDOW.blit(BACKGROUND_SELECTION, (0, 0))
          # background selection buttons
