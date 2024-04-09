@@ -15,9 +15,12 @@ CHARACTER_WIDTH, CHARACTER_HEIGHT = 55, 40
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 RED = (255, 0, 0)
+BLUE = (0, 0, 255)
 YELLOW = (255, 255, 0)
 PURPLE = (128, 0, 128)
 GREEN = (0, 255, 0)
+DARK_GRAY = (50, 50, 50)
+LIME_GREEN = (50, 205, 50)
 SPACE_COLORS = [(0, 10, 20), (20, 0, 40), (50, 0, 70), (20, 0, 40), (0, 10, 20)]
 CANT_CROSS = pygame.Rect(500, 10, 10, 800)
 
@@ -25,8 +28,8 @@ CANT_CROSS = pygame.Rect(500, 10, 10, 800)
 PLAYER2_HIT = pygame.USEREVENT + 1
 PLAYER1_HIT = pygame.USEREVENT + 2
 
-HEALTH_FONT = pygame.font.SysFont("Times New Roman", 40)
-END_FONT = pygame.font.SysFont("Times New Roman", 80)
+HEALTH_FONT = pygame.font.SysFont("impact", 40)
+END_FONT = pygame.font.SysFont("impact", 80)
 
 FPS = 60
 VELOCITY = 10
@@ -79,7 +82,15 @@ except pygame.error as e:
 try:
     SPACE8_BACKGROUND = pygame.transform.scale(pygame.image.load("space8.png"), (WIDTH, HEIGHT))
 except pygame.error as e:
-    print("Erro Loading SPACE8_BACKGROUND", e)
+    print("Error Loading SPACE8_BACKGROUND", e)
+try:
+    SPACE9_BACKGROUND = pygame.transform.scale(pygame.image.load("space9.png"), (WIDTH, HEIGHT))
+except pygame.error as e:
+    print("Error Loading SPACE9_BACKGROUND", e)
+try:
+    SPACE10_BACKGROUND = pygame.transform.scale(pygame.image.load("space10.png"), (WIDTH, HEIGHT))
+except pygame.error as e:
+    print("Error Loading SPACE10_BACKGROUND", e)
 try:
     BLACK_BACKGROUND = pygame.transform.scale(pygame.image.load("black_screen.png"), (WIDTH, HEIGHT))
 except pygame.error as e:
@@ -92,7 +103,6 @@ try:
     BLACK_HOLE = pygame.transform.scale(pygame.image.load("black_hole.jpeg"), (WIDTH, HEIGHT))
 except pygame.error as e:
     print("Error Loading BLACK_HOLE")
-
 try:
     BACKGROUND_SELECTION = pygame.transform.scale(pygame.image.load("background_selection.png"), (WIDTH, HEIGHT))
 except pygame.error as e:
@@ -143,16 +153,18 @@ class Game:
         player1_name = ""
         player2_name = ""
         font = pygame.font.SysFont("Times New Roman", 40)
-        label1 = font.render("Player 1 Name: ", True, WHITE)
-        label2 = font.render("Player 2 Name: ", True, WHITE)
+        label1 = font.render("Player 1 Name: ", True, BLUE)
+        label2 = font.render("Player 2 Name: ", True, RED)
+        label3 = font.render("Player Name Selection", True, BLACK)
 
         #background image for name input screen
         WINDOW.blit(SPACE4_BACKGROUND, (0, 0))
 
         # width, height, box dimensions
+        directions_box = pygame.Rect(WIDTH // 2, HEIGHT // 2 + 100, 350, 60)
         input_box1 = pygame.Rect(WIDTH // 2, HEIGHT // 2 - 50, 350, 60)
         input_box2 = pygame.Rect(WIDTH // 2, HEIGHT // 2 + 50, 350, 60)    
-        color_inactive = pygame.Color(RED)
+        color_inactive = pygame.Color(BLACK)
         color_active = pygame.Color(GREEN)
         color = color_inactive
         active = 0
@@ -195,6 +207,7 @@ class Game:
 
             WINDOW.blit(label1, (WIDTH // 2 - label1.get_width() - 10, HEIGHT // 2 - 50))
             WINDOW.blit(label2, (WIDTH // 2 - label2.get_width() - 10, HEIGHT // 2 + 50))
+            #WINDOW.blit(label3, (WIDTH // 2 - label3.get_width() - 10, HEIGHT // 2 - 150))
             txt_surface1 = font.render(text1, True, color)
             width = max(200, txt_surface1.get_width()+10)
             input_box1.w = width
@@ -206,6 +219,7 @@ class Game:
             input_box2.w = width
             WINDOW.blit(txt_surface2, (input_box2.x+5, input_box2.y+5))
             pygame.draw.rect(WINDOW, color, input_box2, 2)
+            
             pygame.display.flip()
 
         self.player1_name = player1_name
@@ -214,7 +228,6 @@ class Game:
         self.player1_health = self.set_player1_health(self)
         self.player2_health = self.set_player1_health(self)
         self.select_background(self)
-        #add call to how to play screen here 
         return
         
     # draws the game onto the window
@@ -336,18 +349,6 @@ class Game:
                             sys.exit()
                             
     def start_menu(self):
-        try:
-            START_BUTTON = pygame.transform.scale(pygame.image.load("start2_button.jpeg"), (WIDTH, HEIGHT))
-        except pygame.error as e:
-            print("Error Loading START2_BUTTON", e)
-        menu_font = pygame.font.SysFont("Times New Roman", 25)
-        menu_font2 = pygame.font.SysFont("Times New Roman", 70)
-        button_rect = pygame.Rect(WIDTH // 2 - 100, HEIGHT // 2 - 50, 200, 100)
-        how_to_play_rect = pygame.Rect(WIDTH // 2 - 100, HEIGHT // 2 + 100, 200, 50)
-
-        # adjusting size of img to fit rect
-        START_BUTTON = pygame.transform.scale(START_BUTTON, (button_rect.width, button_rect.height))
-
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -363,20 +364,32 @@ class Game:
                             return
                             
             # Clear the screen
-            WINDOW.blit(BLACK_HOLE, (0, 0))
+            WINDOW.blit(SPACE9_BACKGROUND, (0, 0))
+            
+            title_font = pygame.font.SysFont("impact", 80)
+            menu_font = pygame.font.SysFont("impact", 40)
+            button_rect = pygame.Rect(WIDTH // 2 - 100, HEIGHT // 2 - 50, 200, 100)
+            how_to_play_rect = pygame.Rect(WIDTH // 2 - 100, HEIGHT // 2 + 30, 200, 100)
 
-            # Display "Rocket Battle!" at the top of the screen
-            title_text = menu_font2.render("Welcome to Rocket Battle!", True, WHITE)
-            title_rect = title_text.get_rect(center=(WIDTH // 2, 50))
+            # Display "Welcome to Rocket Battle!" at the top of the screen
+            title_text = title_font.render("Welcome to Rocket Battle!", True, LIME_GREEN)
+            title_rect = title_text.get_rect(center=(WIDTH // 2, 150))
+            title_background = pygame.Surface((title_rect.width + 20, title_rect.height + 10))
+            title_background_rect = title_background.get_rect(center = title_rect.center)
+            title_background.fill(BLACK)
+            WINDOW.blit(title_background, title_background_rect)
             WINDOW.blit(title_text, title_rect)
 
-            # Draw the button
-            WINDOW.blit(START_BUTTON, button_rect)
+            # Draw the start button
+            pygame.draw.rect(WINDOW, BLACK, button_rect)
+            start_text = menu_font.render("Start Game", True, LIME_GREEN)
+            start_text_rect = start_text.get_rect(center = button_rect.center)
+            WINDOW.blit(start_text, start_text_rect)
             
             # Draw hwo to play button
-            pygame.draw.rect(WINDOW, PURPLE, how_to_play_rect)
-            how_to_play_text = menu_font.render("How to Play", True, WHITE)
-            how_to_play_text_rect = how_to_play_text.get_rect(center=how_to_play_rect.center)
+            pygame.draw.rect(WINDOW, BLACK, how_to_play_rect)
+            how_to_play_text = menu_font.render("How to Play", True, RED)
+            how_to_play_text_rect = how_to_play_text.get_rect(center = how_to_play_rect.center)
             WINDOW.blit(how_to_play_text, how_to_play_text_rect)
 
             # Update display
@@ -386,10 +399,8 @@ class Game:
             pygame.time.Clock().tick(FPS)
 
     def how_to_play(self):
-#        background = space_background(self, WIDTH, HEIGHT, SPACE_COLORS)
-#        WINDOW.blit(surface, (0, 0))
-        WINDOW.fill(BLACK)
-        instruction_font = pygame.font.SysFont("Times New Roman", 30)
+        WINDOW.blit(SPACE10_BACKGROUND, (0, 0))
+        instruction_font = pygame.font.SysFont("impact", 40)
         instruction_text = [
             "How To Play:",
             "1 - Enter Player 1 & Player 2's Names",
