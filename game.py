@@ -177,7 +177,6 @@ class Game:
         self.player1_bullets = []
         self.player2_bullets = []
         self.clock = pygame.time.Clock()
-        # base health (adjusted to 1 for testing)
         self.player1_health = 10
         self.player2_health = 10
         self.select_background(self)
@@ -195,7 +194,7 @@ class Game:
         BUTTON_WIDTH = 100
         BUTTON_HEIGHT = 50
         BUTTON_SPACING = 20
-        return 7
+        return 10
         
     def get_player_names(self):
         player1_name = ""
