@@ -41,72 +41,118 @@ WINDOW = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Rocket Battle!")
 
 try:
-    YELLOW_SPACESHIP = pygame.image.load("spaceship_yellow.png")
+    YELLOW_SPACESHIP = pygame.image.load("assests/spaceship_yellow.png")
 except pygame.error as e:
     print("Error Loading YELLOW_SPACESHIP")
 YELLOW_SPACESHIP_SiZE = pygame.transform.rotate(pygame.transform.scale(YELLOW_SPACESHIP, (55, 40)), 90)
 try:
-    RED_SPACESHIP = pygame.image.load("spaceship_red.png")
+    RED_SPACESHIP = pygame.image.load("assests/spaceship_red.png")
 except pygame.error as e:
     print("Error Loading RED_SPACESHIP")
 RED_SPACESHIP_SiZE = pygame.transform.rotate(pygame.transform.scale(RED_SPACESHIP, (55, 40)), 270)
 
 try:
-    SPACE_BACKGROUND = pygame.transform.scale(pygame.image.load("space3.jpg"), (WIDTH, HEIGHT))
+    SPACE_BACKGROUND = pygame.transform.scale(pygame.image.load("assests/space3.jpg"), (WIDTH, HEIGHT))
 except pygame.error as e:
     print("Error Loading SPACE_BACKGROUND")
 try:
-    SPACE2_BACKGROUND = pygame.transform.scale(pygame.image.load("space2.jpeg"), (WIDTH, HEIGHT))
+    SPACE2_BACKGROUND = pygame.transform.scale(pygame.image.load("assests/space2.jpeg"), (WIDTH, HEIGHT))
 except pygame.error as e:
     print("Error Loading SPACE2_BACKGROUND")
 try:
-    SPACE3_BACKGROUND = pygame.transform.scale(pygame.image.load("space4.png"), (WIDTH, HEIGHT))
+    SPACE3_BACKGROUND = pygame.transform.scale(pygame.image.load("assests/space4.png"), (WIDTH, HEIGHT))
 except pygame.error as e:
     print("Error Loading SPACE3_BACKGROUND")
 try:
-    SPACE4_BACKGROUND = pygame.transform.scale(pygame.image.load("space.png"), (WIDTH, HEIGHT))
+    SPACE4_BACKGROUND = pygame.transform.scale(pygame.image.load("assests/space.png"), (WIDTH, HEIGHT))
 except pygame.error as e:
     print("Error Loading SPACE4_BACKGROUND", e)
 try:
-    SPACE5_BACKGROUND = pygame.transform.scale(pygame.image.load("space5.png"), (WIDTH, HEIGHT))
+    SPACE5_BACKGROUND = pygame.transform.scale(pygame.image.load("assests/space5.png"), (WIDTH, HEIGHT))
 except pygame.error as e:
     print("Error Loading SPACE5_BACKGROUND", e)
 try:
-    SPACE6_BACKGROUND = pygame.transform.scale(pygame.image.load("space6.png"), (WIDTH, HEIGHT))
+    SPACE6_BACKGROUND = pygame.transform.scale(pygame.image.load("assests/space6.png"), (WIDTH, HEIGHT))
 except pygame.error as e:
     print("Error Loading SPACE6_BACKGROUND", e)
 try:
-    SPACE7_BACKGROUND = pygame.transform.scale(pygame.image.load("space7.png"), (WIDTH, HEIGHT))
+    SPACE7_BACKGROUND = pygame.transform.scale(pygame.image.load("assests/space7.png"), (WIDTH, HEIGHT))
 except pygame.error as e:
     print("Error Loading SPACE7_BACKGROUND", e)
 try:
-    SPACE8_BACKGROUND = pygame.transform.scale(pygame.image.load("space8.png"), (WIDTH, HEIGHT))
+    SPACE8_BACKGROUND = pygame.transform.scale(pygame.image.load("assests/space8.png"), (WIDTH, HEIGHT))
 except pygame.error as e:
     print("Error Loading SPACE8_BACKGROUND", e)
 try:
-    SPACE9_BACKGROUND = pygame.transform.scale(pygame.image.load("space9.png"), (WIDTH, HEIGHT))
+    SPACE9_BACKGROUND = pygame.transform.scale(pygame.image.load("assests/space9.png"), (WIDTH, HEIGHT))
 except pygame.error as e:
     print("Error Loading SPACE9_BACKGROUND", e)
 try:
-    SPACE10_BACKGROUND = pygame.transform.scale(pygame.image.load("space10.png"), (WIDTH, HEIGHT))
+    SPACE10_BACKGROUND = pygame.transform.scale(pygame.image.load("assests/space10.png"), (WIDTH, HEIGHT))
 except pygame.error as e:
     print("Error Loading SPACE10_BACKGROUND", e)
 try:
-    BLACK_BACKGROUND = pygame.transform.scale(pygame.image.load("black_screen.png"), (WIDTH, HEIGHT))
+    BLACK_BACKGROUND = pygame.transform.scale(pygame.image.load("assests/black_screen.png"), (WIDTH, HEIGHT))
 except pygame.error as e:
     print("Error Loading BLACK_BACKGROUND", e)
 try:
-    BACKGROUND = pygame.transform.scale(pygame.image.load("background.jpeg"), (WIDTH, HEIGHT))
+    BACKGROUND = pygame.transform.scale(pygame.image.load("assests/background.jpeg"), (WIDTH, HEIGHT))
 except pygame.error as e:
     print("Error Loading BACKGROUND")
 try:
-    BLACK_HOLE = pygame.transform.scale(pygame.image.load("black_hole.jpeg"), (WIDTH, HEIGHT))
+    BLACK_HOLE = pygame.transform.scale(pygame.image.load("assests/black_hole.jpeg"), (WIDTH, HEIGHT))
 except pygame.error as e:
     print("Error Loading BLACK_HOLE")
 try:
-    BACKGROUND_SELECTION = pygame.transform.scale(pygame.image.load("background_selection.png"), (WIDTH, HEIGHT))
+    BACKGROUND_SELECTION = pygame.transform.scale(pygame.image.load("assests/background_selection.png"), (WIDTH, HEIGHT))
 except pygame.error as e:
     print("Error Loading BACKGROUND_SELECTION")
+try:
+    SKIN_SELECTION = pygame.transform.scale(pygame.image.load("assests/skin_selection.png"), (WIDTH, HEIGHT))
+except pygame.error as e:
+    print("Error Loading BACKGROUND_SELECTION")
+
+try:
+    SPACESHIP1 = pygame.image.load("assests/ship1.png")
+except pygame.error as e:
+    print("Error Loading SHIP1")
+
+SPACESHIP1_SIZE = pygame.transform.rotate(pygame.transform.scale(SPACESHIP1, (55, 40)), 90)
+
+try:
+    SPACESHIP2 = pygame.image.load("assests/ship2.png")
+except pygame.error as e:
+    print("Error Loading SHIP2")
+
+SPACESHIP2_SIZE = pygame.transform.rotate(pygame.transform.scale(SPACESHIP2, (55, 40)), 90)
+
+try:
+    SPACESHIP3 = pygame.image.load("assests/ship3.png")
+except pygame.error as e:
+    print("Error Loading SHIP3")
+
+SPACESHIP3_SIZE = pygame.transform.rotate(pygame.transform.scale(SPACESHIP3, (55, 40)), 90)
+
+try:
+    SPACESHIP4 = pygame.image.load("assests/ship4.png")
+except pygame.error as e:
+    print("Error Loading SHIP4")
+
+SPACESHIP4_SIZE = pygame.transform.rotate(pygame.transform.scale(SPACESHIP4, (55, 40)), 90)
+
+try:
+    SPACESHIP5 = pygame.image.load("assests/ship5.png")
+except pygame.error as e:
+    print("Error Loading SHIP5")
+
+SPACESHIP5_SIZE = pygame.transform.rotate(pygame.transform.scale(SPACESHIP5, (55, 40)), 90)
+
+try:
+    SPACESHIP6 = pygame.image.load("assests/ship6.png")
+except pygame.error as e:
+    print("Error Loading SHIP6")
+
+SPACESHIP6_SIZE = pygame.transform.rotate(pygame.transform.scale(SPACESHIP6, (55, 40)), 90)
 
 class Game:
     player1 = pygame.Rect(700, 300, CHARACTER_WIDTH, CHARACTER_HEIGHT)
@@ -120,7 +166,9 @@ class Game:
     player2_health = 1
     current_background = SPACE2_BACKGROUND
     clock = pygame.time.Clock()
-
+    player1_skin = ""
+    player2_skin = ""
+ 
     def __init__(self):
         return
       
@@ -158,7 +206,7 @@ class Game:
         label3 = font.render("Player Name Selection", True, BLACK)
 
         #background image for name input screen
-        WINDOW.blit(SPACE4_BACKGROUND, (0, 0))
+        WINDOW.blit(BLACK_BACKGROUND, (0, 0))
 
         # width, height, box dimensions
         directions_box = pygame.Rect(WIDTH // 2, HEIGHT // 2 + 100, 350, 60)
@@ -227,7 +275,7 @@ class Game:
         
         self.player1_health = self.set_player1_health(self)
         self.player2_health = self.set_player1_health(self)
-        self.select_background(self)
+        self.select_skin(self)
         return
         
     # draws the game onto the window
@@ -242,8 +290,8 @@ class Game:
 
         WINDOW.blit(red_health_text, (WIDTH - red_health_text.get_width() - 10, 10))
         WINDOW.blit(yellow_health_text, (10, 10))
-        WINDOW.blit(YELLOW_SPACESHIP_SiZE, (self.player2.x, self.player2.y))
-        WINDOW.blit(RED_SPACESHIP_SiZE, (self.player1.x, self.player1.y))
+        WINDOW.blit(self.player2_skin, (self.player2.x, self.player2.y))
+        WINDOW.blit(self.player1_skin, (self.player1.x, self.player1.y))
         # used to project player1 bullet in game
         for bullet in self.player1_bullets:
             pygame.draw.rect(WINDOW, RED, bullet)
@@ -435,49 +483,49 @@ class Game:
         WINDOW.blit(BACKGROUND_SELECTION, (0, 0))
          # background selection buttons
         button_1 = pygame.Rect(WIDTH // 2 - 350, HEIGHT // 2 - 130, 150, 50)
-        pygame.draw.rect(WINDOW, WHITE, button_1)
-        menu_font = pygame.font.SysFont("Times New Roman", 25)
-        menu_text = menu_font.render("Background 1", True, BLACK)
+        pygame.draw.rect(WINDOW, BLACK, button_1)
+        menu_font = pygame.font.SysFont("impact", 25)
+        menu_text = menu_font.render("Background 1", True, LIME_GREEN)
         text_rect = menu_text.get_rect(center=button_1.center)
         WINDOW.blit(menu_text, text_rect)
         pygame.display.update()
 
         button_2 = pygame.Rect(WIDTH // 2 + 150, HEIGHT // 2 - 130, 150, 50)
-        pygame.draw.rect(WINDOW, WHITE, button_2)
-        menu_font = pygame.font.SysFont("Times New Roman", 25)
-        menu_text = menu_font.render("Background 2", True, BLACK)
+        pygame.draw.rect(WINDOW, BLACK, button_2)
+        menu_font = pygame.font.SysFont("impact", 25)
+        menu_text = menu_font.render("Background 2", True, LIME_GREEN)
         text_rect = menu_text.get_rect(center=button_2.center)
         WINDOW.blit(menu_text, text_rect)
         pygame.display.update()
 
         button_3 = pygame.Rect(WIDTH // 2 - 350, HEIGHT // 2 + 90, 150, 50)
-        pygame.draw.rect(WINDOW, WHITE, button_3)
-        menu_font = pygame.font.SysFont("Times New Roman", 25)
-        menu_text = menu_font.render("Background 3", True, BLACK)
+        pygame.draw.rect(WINDOW, BLACK, button_3)
+        menu_font = pygame.font.SysFont("impact", 25)
+        menu_text = menu_font.render("Background 3", True, LIME_GREEN)
         text_rect = menu_text.get_rect(center=button_3.center)
         WINDOW.blit(menu_text, text_rect)
         pygame.display.update()
 
         button_4 = pygame.Rect(WIDTH // 2 + 150, HEIGHT // 2 + 90, 150, 50)
-        pygame.draw.rect(WINDOW, WHITE, button_4)
-        menu_font = pygame.font.SysFont("Times New Roman", 25)
-        menu_text = menu_font.render("Background 4", True, BLACK)
+        pygame.draw.rect(WINDOW, BLACK, button_4)
+        menu_font = pygame.font.SysFont("impact", 25)
+        menu_text = menu_font.render("Background 4", True, LIME_GREEN)
         text_rect = menu_text.get_rect(center=button_4.center)
         WINDOW.blit(menu_text, text_rect)
         pygame.display.update()
 
         button_5 = pygame.Rect(WIDTH // 2 - 350, HEIGHT // 2 + 310, 150, 50)
-        pygame.draw.rect(WINDOW, WHITE, button_5)
-        menu_font = pygame.font.SysFont("Times New Roman", 25)
-        menu_text = menu_font.render("Background 5", True, BLACK)
+        pygame.draw.rect(WINDOW, BLACK, button_5)
+        menu_font = pygame.font.SysFont("impact", 25)
+        menu_text = menu_font.render("Background 5", True, LIME_GREEN)
         text_rect = menu_text.get_rect(center=button_5.center)
         WINDOW.blit(menu_text, text_rect)
         pygame.display.update()
 
         button_6 = pygame.Rect(WIDTH // 2 + 150, HEIGHT // 2 + 310, 150, 50)
-        pygame.draw.rect(WINDOW, WHITE, button_6)
-        menu_font = pygame.font.SysFont("Times New Roman", 25)
-        menu_text = menu_font.render("Background 6", True, BLACK)
+        pygame.draw.rect(WINDOW, BLACK, button_6)
+        menu_font = pygame.font.SysFont("impact", 25)
+        menu_text = menu_font.render("Background 6", True, LIME_GREEN)
         text_rect = menu_text.get_rect(center=button_6.center)
         WINDOW.blit(menu_text, text_rect)
         pygame.display.update()
@@ -508,6 +556,126 @@ class Game:
                         elif button_6.collidepoint(event.pos):
                             self.current_background = SPACE7_BACKGROUND
                             self.run_game(self)
+
+    def select_skin(self):
+        WINDOW.blit(SKIN_SELECTION, (0, 0))
+        
+        button_1 = pygame.Rect(WIDTH // 2 - 335, HEIGHT // 2 - 100, 150, 50)
+        pygame.draw.rect(WINDOW, BLACK, button_1)
+        menu_font = pygame.font.SysFont("impact", 25)
+        menu_text = menu_font.render("Ship1", True, LIME_GREEN)
+        text_rect = menu_text.get_rect(center=button_1.center)
+        WINDOW.blit(menu_text, text_rect)
+        pygame.display.update()
+
+        button_2 = pygame.Rect(WIDTH // 2 + 190, HEIGHT // 2 - 100, 150, 50)
+        pygame.draw.rect(WINDOW, BLACK, button_2)
+        menu_font = pygame.font.SysFont("impact", 25)
+        menu_text = menu_font.render("Ship2", True, LIME_GREEN)
+        text_rect = menu_text.get_rect(center=button_2.center)
+        WINDOW.blit(menu_text, text_rect)
+        pygame.display.update()
+
+        button_3 = pygame.Rect(WIDTH // 2 - 335, HEIGHT // 2 + 110, 150, 50)
+        pygame.draw.rect(WINDOW, BLACK, button_3)
+        menu_font = pygame.font.SysFont("impact", 25)
+        menu_text = menu_font.render("Ship3", True, LIME_GREEN)
+        text_rect = menu_text.get_rect(center=button_3.center)
+        WINDOW.blit(menu_text, text_rect)
+        pygame.display.update()
+
+        button_4 = pygame.Rect(WIDTH // 2 + 190, HEIGHT // 2 + 110, 150, 50)
+        pygame.draw.rect(WINDOW, BLACK, button_4)
+        menu_font = pygame.font.SysFont("impact", 25)
+        menu_text = menu_font.render("Ship4", True, LIME_GREEN)
+        text_rect = menu_text.get_rect(center=button_4.center)
+        WINDOW.blit(menu_text, text_rect)
+        pygame.display.update()
+
+        button_5 = pygame.Rect(WIDTH // 2 - 335, HEIGHT // 2 + 300, 150, 50)
+        pygame.draw.rect(WINDOW, BLACK, button_5)
+        menu_font = pygame.font.SysFont("impact", 25)
+        menu_text = menu_font.render("Ship5", True, LIME_GREEN)
+        text_rect = menu_text.get_rect(center=button_5.center)
+        WINDOW.blit(menu_text, text_rect)
+        pygame.display.update()
+
+        button_6 = pygame.Rect(WIDTH // 2 + 190, HEIGHT // 2 + 300, 150, 50)
+        pygame.draw.rect(WINDOW, BLACK, button_6)
+        menu_font = pygame.font.SysFont("impact", 25)
+        menu_text = menu_font.render("Ship5", True, LIME_GREEN)
+        text_rect = menu_text.get_rect(center=button_6.center)
+        WINDOW.blit(menu_text, text_rect)
+        pygame.display.update()
+        
+        player1_selected = False
+        player1_button = ""
+        player2_selected = False
+        while not player1_selected:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if event.button == 1: 
+                        if button_1.collidepoint(event.pos):
+                            self.player1_skin = SPACESHIP1_SIZE
+                            player1_selected = True
+                            player1_button = "Button1"
+                        elif button_2.collidepoint(event.pos):
+                            self.player1_skin = SPACESHIP2_SIZE
+                            player1_selected = True
+                            player1_button = "Button2"
+                        elif button_3.collidepoint(event.pos):
+                            self.player1_skin = SPACESHIP3_SIZE
+                            player1_selected = True
+                            player1_button = "Button3"
+                        elif button_4.collidepoint(event.pos):
+                            self.player1_skin = SPACESHIP4_SIZE
+                            player1_selected = True
+                            player1_button = "Button4"
+                        elif button_5.collidepoint(event.pos):
+                            self.player1_skin = SPACESHIP5_SIZE
+                            player1_selected = True
+                            player1_button = "Button5"
+                        elif button_6.collidepoint(event.pos):
+                            self.player1_skin = SPACESHIP6_SIZE
+                            player1_selected = True
+                            player1_button = "Button6"
+
+
+        while not player2_selected:
+            menu_font = pygame.font.SysFont("impact", 30)
+            menu_text = menu_font.render("Player2 Choose skin!", True, LIME_GREEN)
+            menu_rect = menu_text.get_rect(center=(WIDTH // 2, 250))
+            WINDOW.blit(menu_text, menu_rect)
+            pygame.display.flip()
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if event.button == 1: 
+                        if button_1.collidepoint(event.pos) and player1_button != "Button1":
+                            self.player2_skin = SPACESHIP1_SIZE
+                            player2_selected = True
+                        elif button_2.collidepoint(event.pos) and player1_button != "Button2":
+                            self.player2_skin = SPACESHIP2_SIZE
+                            player2_selected = True 
+                        elif button_3.collidepoint(event.pos) and player1_button != "Button3":
+                            self.player2_skin = SPACESHIP3_SIZE
+                            player2_selected = True 
+                        elif button_4.collidepoint(event.pos) and player1_button != "Button4":
+                            self.player2_skin = SPACESHIP4_SIZE
+                            player2_selected = True 
+                        elif button_5.collidepoint(event.pos) and player1_button != "Button5":
+                            self.player2_skin = SPACESHIP5_SIZE
+                            player2_selected = True  
+                        elif button_6.collidepoint(event.pos) and player1_button != "Button6":
+                            self.player2_skin = SPACESHIP6_SIZE
+                            player2_selected = True  
+
+        self.select_background(self)
 
     def run_game(self):
         while True:
