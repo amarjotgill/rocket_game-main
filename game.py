@@ -41,114 +41,114 @@ WINDOW = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Rocket Battle!")
 
 try:
-    YELLOW_SPACESHIP = pygame.image.load("assests/spaceship_yellow.png")
+    YELLOW_SPACESHIP = pygame.image.load("assets/spaceship_yellow.png")
 except pygame.error as e:
     print("Error Loading YELLOW_SPACESHIP")
 YELLOW_SPACESHIP_SiZE = pygame.transform.rotate(pygame.transform.scale(YELLOW_SPACESHIP, (55, 40)), 90)
 try:
-    RED_SPACESHIP = pygame.image.load("assests/spaceship_red.png")
+    RED_SPACESHIP = pygame.image.load("assets/spaceship_red.png")
 except pygame.error as e:
     print("Error Loading RED_SPACESHIP")
 RED_SPACESHIP_SiZE = pygame.transform.rotate(pygame.transform.scale(RED_SPACESHIP, (55, 40)), 270)
 
 try:
-    SPACE_BACKGROUND = pygame.transform.scale(pygame.image.load("assests/space3.jpg"), (WIDTH, HEIGHT))
+    SPACE_BACKGROUND = pygame.transform.scale(pygame.image.load("assets/space3.jpg"), (WIDTH, HEIGHT))
 except pygame.error as e:
     print("Error Loading SPACE_BACKGROUND")
 try:
-    SPACE2_BACKGROUND = pygame.transform.scale(pygame.image.load("assests/space2.jpeg"), (WIDTH, HEIGHT))
+    SPACE2_BACKGROUND = pygame.transform.scale(pygame.image.load("assets/space2.jpeg"), (WIDTH, HEIGHT))
 except pygame.error as e:
     print("Error Loading SPACE2_BACKGROUND")
 try:
-    SPACE3_BACKGROUND = pygame.transform.scale(pygame.image.load("assests/space4.png"), (WIDTH, HEIGHT))
+    SPACE3_BACKGROUND = pygame.transform.scale(pygame.image.load("assets/space4.png"), (WIDTH, HEIGHT))
 except pygame.error as e:
     print("Error Loading SPACE3_BACKGROUND")
 try:
-    SPACE4_BACKGROUND = pygame.transform.scale(pygame.image.load("assests/space.png"), (WIDTH, HEIGHT))
+    SPACE4_BACKGROUND = pygame.transform.scale(pygame.image.load("assets/space.png"), (WIDTH, HEIGHT))
 except pygame.error as e:
     print("Error Loading SPACE4_BACKGROUND", e)
 try:
-    SPACE5_BACKGROUND = pygame.transform.scale(pygame.image.load("assests/space5.png"), (WIDTH, HEIGHT))
+    SPACE5_BACKGROUND = pygame.transform.scale(pygame.image.load("assets/space5.png"), (WIDTH, HEIGHT))
 except pygame.error as e:
     print("Error Loading SPACE5_BACKGROUND", e)
 try:
-    SPACE6_BACKGROUND = pygame.transform.scale(pygame.image.load("assests/space6.png"), (WIDTH, HEIGHT))
+    SPACE6_BACKGROUND = pygame.transform.scale(pygame.image.load("assets/space6.png"), (WIDTH, HEIGHT))
 except pygame.error as e:
     print("Error Loading SPACE6_BACKGROUND", e)
 try:
-    SPACE7_BACKGROUND = pygame.transform.scale(pygame.image.load("assests/space7.png"), (WIDTH, HEIGHT))
+    SPACE7_BACKGROUND = pygame.transform.scale(pygame.image.load("assets/space7.png"), (WIDTH, HEIGHT))
 except pygame.error as e:
     print("Error Loading SPACE7_BACKGROUND", e)
 try:
-    SPACE8_BACKGROUND = pygame.transform.scale(pygame.image.load("assests/space8.png"), (WIDTH, HEIGHT))
+    SPACE8_BACKGROUND = pygame.transform.scale(pygame.image.load("assets/space8.png"), (WIDTH, HEIGHT))
 except pygame.error as e:
     print("Error Loading SPACE8_BACKGROUND", e)
 try:
-    SPACE9_BACKGROUND = pygame.transform.scale(pygame.image.load("assests/space9.png"), (WIDTH, HEIGHT))
+    SPACE9_BACKGROUND = pygame.transform.scale(pygame.image.load("assets/space9.png"), (WIDTH, HEIGHT))
 except pygame.error as e:
     print("Error Loading SPACE9_BACKGROUND", e)
 try:
-    SPACE10_BACKGROUND = pygame.transform.scale(pygame.image.load("assests/space10.png"), (WIDTH, HEIGHT))
+    SPACE10_BACKGROUND = pygame.transform.scale(pygame.image.load("assets/space10.png"), (WIDTH, HEIGHT))
 except pygame.error as e:
     print("Error Loading SPACE10_BACKGROUND", e)
 try:
-    BLACK_BACKGROUND = pygame.transform.scale(pygame.image.load("assests/black_screen.png"), (WIDTH, HEIGHT))
+    BLACK_BACKGROUND = pygame.transform.scale(pygame.image.load("assets/black_screen.png"), (WIDTH, HEIGHT))
 except pygame.error as e:
     print("Error Loading BLACK_BACKGROUND", e)
 try:
-    BACKGROUND = pygame.transform.scale(pygame.image.load("assests/background.jpeg"), (WIDTH, HEIGHT))
+    BACKGROUND = pygame.transform.scale(pygame.image.load("assets/background.jpeg"), (WIDTH, HEIGHT))
 except pygame.error as e:
     print("Error Loading BACKGROUND")
 try:
-    BLACK_HOLE = pygame.transform.scale(pygame.image.load("assests/black_hole.jpeg"), (WIDTH, HEIGHT))
+    BLACK_HOLE = pygame.transform.scale(pygame.image.load("assets/black_hole.jpeg"), (WIDTH, HEIGHT))
 except pygame.error as e:
     print("Error Loading BLACK_HOLE")
 try:
-    BACKGROUND_SELECTION = pygame.transform.scale(pygame.image.load("assests/background_selection.png"), (WIDTH, HEIGHT))
+    BACKGROUND_SELECTION = pygame.transform.scale(pygame.image.load("assets/background_selection.png"), (WIDTH, HEIGHT))
 except pygame.error as e:
     print("Error Loading BACKGROUND_SELECTION")
 try:
-    SKIN_SELECTION = pygame.transform.scale(pygame.image.load("assests/skin_selection.png"), (WIDTH, HEIGHT))
+    SKIN_SELECTION = pygame.transform.scale(pygame.image.load("assets/skin_selection.png"), (WIDTH, HEIGHT))
 except pygame.error as e:
     print("Error Loading BACKGROUND_SELECTION")
 
 try:
-    SPACESHIP1 = pygame.image.load("assests/ship1.png")
+    SPACESHIP1 = pygame.image.load("assets/ship1.png")
 except pygame.error as e:
     print("Error Loading SHIP1")
 
 SPACESHIP1_SIZE = pygame.transform.rotate(pygame.transform.scale(SPACESHIP1, (55, 40)), 90)
 
 try:
-    SPACESHIP2 = pygame.image.load("assests/ship2.png")
+    SPACESHIP2 = pygame.image.load("assets/ship2.png")
 except pygame.error as e:
     print("Error Loading SHIP2")
 
 SPACESHIP2_SIZE = pygame.transform.rotate(pygame.transform.scale(SPACESHIP2, (55, 40)), 90)
 
 try:
-    SPACESHIP3 = pygame.image.load("assests/ship3.png")
+    SPACESHIP3 = pygame.image.load("assets/ship3.png")
 except pygame.error as e:
     print("Error Loading SHIP3")
 
 SPACESHIP3_SIZE = pygame.transform.rotate(pygame.transform.scale(SPACESHIP3, (55, 40)), 90)
 
 try:
-    SPACESHIP4 = pygame.image.load("assests/ship4.png")
+    SPACESHIP4 = pygame.image.load("assets/ship4.png")
 except pygame.error as e:
     print("Error Loading SHIP4")
 
 SPACESHIP4_SIZE = pygame.transform.rotate(pygame.transform.scale(SPACESHIP4, (55, 40)), 90)
 
 try:
-    SPACESHIP5 = pygame.image.load("assests/ship5.png")
+    SPACESHIP5 = pygame.image.load("assets/ship5.png")
 except pygame.error as e:
     print("Error Loading SHIP5")
 
 SPACESHIP5_SIZE = pygame.transform.rotate(pygame.transform.scale(SPACESHIP5, (55, 40)), 90)
 
 try:
-    SPACESHIP6 = pygame.image.load("assests/ship6.png")
+    SPACESHIP6 = pygame.image.load("assets/ship6.png")
 except pygame.error as e:
     print("Error Loading SHIP6")
 
@@ -603,7 +603,7 @@ class Game:
         button_6 = pygame.Rect(WIDTH // 2 + 190, HEIGHT // 2 + 300, 150, 50)
         pygame.draw.rect(WINDOW, BLACK, button_6)
         menu_font = pygame.font.SysFont("impact", 25)
-        menu_text = menu_font.render("Ship5", True, LIME_GREEN)
+        menu_text = menu_font.render("Ship6", True, LIME_GREEN)
         text_rect = menu_text.get_rect(center=button_6.center)
         WINDOW.blit(menu_text, text_rect)
         pygame.display.update()
