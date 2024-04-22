@@ -199,7 +199,7 @@ class Game:
     def get_player_names(self):
         player1_name = ""
         player2_name = ""
-        font = pygame.font.SysFont("Times New Roman", 40)
+        font = pygame.font.SysFont("Impact", 40)
         label1 = font.render("Player 1 Name: ", True, BLUE)
         label2 = font.render("Player 2 Name: ", True, RED)
         label3 = font.render("Player Name Selection", True, BLACK)
@@ -364,7 +364,7 @@ class Game:
         # Draw restart button
         restart_button = pygame.Rect(WIDTH // 2 - 100, HEIGHT // 2 + 100, 200, 100)
         pygame.draw.rect(WINDOW, WHITE, restart_button)
-        menu_font = pygame.font.SysFont("Times New Roman", 25)
+        menu_font = pygame.font.SysFont("Impact", 25)
         menu_text = menu_font.render("Play Again?", True, BLACK)
         text_rect = menu_text.get_rect(center=restart_button.center)
         WINDOW.blit(menu_text, text_rect)
@@ -372,7 +372,7 @@ class Game:
 
         quit_button = pygame.Rect(WIDTH // 2 - 100, HEIGHT // 2 + 250, 200, 100)
         pygame.draw.rect(WINDOW, WHITE, quit_button)
-        quit_menu_font = pygame.font.SysFont("Times New Roman", 25)
+        quit_menu_font = pygame.font.SysFont("Impact", 25)
         quit_menu_text = quit_menu_font.render("Quit Game", True, BLACK)
         quit_text_rect = quit_menu_text.get_rect(center=quit_button.center)
         WINDOW.blit(quit_menu_text, quit_text_rect)
