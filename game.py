@@ -202,22 +202,18 @@ class Game:
         font = pygame.font.SysFont("Impact", 40)
         label1 = font.render("Player 1 Name: ", True, BLUE)
         label2 = font.render("Player 2 Name: ", True, RED)
-        label3 = font.render("Player Name Selection", True, BLACK)
 
-        #background image for name input screen
         WINDOW.blit(BLACK_BACKGROUND, (0, 0))
 
-        # width, height, box dimensions
-        directions_box = pygame.Rect(WIDTH // 2, HEIGHT // 2 + 100, 350, 60)
         input_box1 = pygame.Rect(WIDTH // 2, HEIGHT // 2 - 50, 350, 60)
-        input_box2 = pygame.Rect(WIDTH // 2, HEIGHT // 2 + 50, 350, 60)    
+        input_box2 = pygame.Rect(WIDTH // 2, HEIGHT // 2 + 50, 350, 60)
         color_inactive = pygame.Color(BLACK)
         color_active = pygame.Color(GREEN)
-        color = color_inactive
-        active = 0
+        color1 = color_inactive
+        color2 = color_inactive
         text1 = ''
         text2 = ''
-        input_names = False  # flag to stop lop
+        input_names = False  #loop flag
 
         while not input_names:
             for event in pygame.event.get():
@@ -226,27 +222,30 @@ class Game:
                     sys.exit()
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if input_box1.collidepoint(event.pos):
-                        active = 1
+                        color1 = color_active
+                        color2 = color_inactive
+                        player2_name = text2
                     elif input_box2.collidepoint(event.pos):
-                        active = 2
-                    else:
-                        active = 0
-                    color = color_active if active else color_inactive
+                        color1 = color_inactive
+                        color2 = color_active
+                        player1_name = text1
                 if event.type == pygame.KEYDOWN:
-                    if active == 1:
+                    if color1 == color_active:
                         if event.key == pygame.K_RETURN:
                             player1_name = text1
-                            active = 0
-                            input_names = True  # Adjusting flag val
+                            text1 = ''
+                            color1 = color_inactive
+                            color2 = color_active
                         elif event.key == pygame.K_BACKSPACE:
                             text1 = text1[:-1]
                         else:
                             text1 += event.unicode
-                    elif active == 2:
+                            print("Text 1: ", text1) #debugging code
+                    elif color2 == color_active:
                         if event.key == pygame.K_RETURN:
                             player2_name = text2
-                            active = 0
-                            input_names = True  # Adjusting flag val
+                            if player1_name and player2_name:
+                                input_names = True  
                         elif event.key == pygame.K_BACKSPACE:
                             text2 = text2[:-1]
                         else:
@@ -254,28 +253,31 @@ class Game:
 
             WINDOW.blit(label1, (WIDTH // 2 - label1.get_width() - 10, HEIGHT // 2 - 50))
             WINDOW.blit(label2, (WIDTH // 2 - label2.get_width() - 10, HEIGHT // 2 + 50))
-            #WINDOW.blit(label3, (WIDTH // 2 - label3.get_width() - 10, HEIGHT // 2 - 150))
-            txt_surface1 = font.render(text1, True, color)
-            width = max(200, txt_surface1.get_width()+10)
-            input_box1.w = width
-            WINDOW.blit(txt_surface1, (input_box1.x+5, input_box1.y+5))
-            pygame.draw.rect(WINDOW, color, input_box1, 2)
 
-            txt_surface2 = font.render(text2, True, color)
-            width = max(200, txt_surface2.get_width()+10)
-            input_box2.w = width
-            WINDOW.blit(txt_surface2, (input_box2.x+5, input_box2.y+5))
-            pygame.draw.rect(WINDOW, color, input_box2, 2)
-            
+            txt_surface1 = font.render(text1, True, color1)
+            width1 = max(200, txt_surface1.get_width() + 10)
+            input_box1.w = width1
+            WINDOW.blit(txt_surface1, (input_box1.x + 5, input_box1.y + 5))
+            pygame.draw.rect(WINDOW, color1, input_box1, 2)
+
+            txt_surface2 = font.render(text2, True, color2)
+            width2 = max(200, txt_surface2.get_width() + 10)
+            input_box2.w = width2
+            WINDOW.blit(txt_surface2, (input_box2.x + 5, input_box2.y + 5))
+            pygame.draw.rect(WINDOW, color2, input_box2, 2)
+
             pygame.display.flip()
-
+        
+        print ("Player 1 name: ", player1_name) #debugging code
+        print ("Player 2 name: ", player2_name) #debugging code
         self.player1_name = player1_name
         self.player2_name = player2_name
-        
+
         self.player1_health = self.set_player1_health(self)
         self.player2_health = self.set_player1_health(self)
         self.select_skin(self)
         return
+
         
     # draws the game onto the window
     def draw_game(self):
