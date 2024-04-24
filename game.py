@@ -162,12 +162,14 @@ class Game:
     game_status = True
     player1_bullets = []
     player2_bullets = []
-    player1_health = 1
-    player2_health = 1
+    player1_health = 10
+    player2_health = 10
+    set_health = 10
     current_background = SPACE2_BACKGROUND
     clock = pygame.time.Clock()
     player1_skin = ""
     player2_skin = ""
+    velocity = VELOCITY
  
     def __init__(self):
         return
@@ -177,8 +179,8 @@ class Game:
         self.player1_bullets = []
         self.player2_bullets = []
         self.clock = pygame.time.Clock()
-        self.player1_health = 10
-        self.player2_health = 10
+        self.player1_health = self.set_health
+        self.player2_health = self.set_health
         self.select_background(self)
 
     @staticmethod
@@ -240,7 +242,7 @@ class Game:
                             text1 = text1[:-1]
                         else:
                             text1 += event.unicode
-                            print("Text 1: ", text1) #debugging code
+                            #print("Text 1: ", text1) #debugging code
                     elif color2 == color_active:
                         if event.key == pygame.K_RETURN:
                             player2_name = text2
@@ -268,13 +270,14 @@ class Game:
 
             pygame.display.flip()
         
-        print ("Player 1 name: ", player1_name) #debugging code
-        print ("Player 2 name: ", player2_name) #debugging code
+        #print ("Player 1 name: ", player1_name) #debugging code
+        #print ("Player 2 name: ", player2_name) #debugging code
+
         self.player1_name = player1_name
         self.player2_name = player2_name
 
-        self.player1_health = self.set_player1_health(self)
-        self.player2_health = self.set_player1_health(self)
+        self.player1_health = self.set_health
+        self.player2_health = self.set_health
         self.select_skin(self)
         return
 
@@ -305,34 +308,34 @@ class Game:
     def move_player2(self,keys_pressed):
         # left
         if keys_pressed[pygame.K_a]:
-            if self.player2.x - VELOCITY > 0:
-                self.player2.x -= VELOCITY
+            if self.player2.x - self.velocity > 0:
+                self.player2.x -= self.velocity
         # right
         if keys_pressed[pygame.K_d]:
-            if self.player2.x + VELOCITY + self.player2.width < CANT_CROSS.x:
-                self.player2.x += VELOCITY
+            if self.player2.x + self.velocity + self.player2.width < CANT_CROSS.x:
+                self.player2.x += self.velocity
         # up
         if keys_pressed[pygame.K_w]:
-            if self.player2.y - VELOCITY > 0:
-                self.player2.y -= VELOCITY
+            if self.player2.y - self.velocity > 0:
+                self.player2.y -= self.velocity
         # down
         if keys_pressed[pygame.K_s]:
-            if self.player2.y + VELOCITY + self.player2.height < HEIGHT - 15:
-                self.player2.y += VELOCITY
+            if self.player2.y + self.velocity + self.player2.height < HEIGHT - 15:
+                self.player2.y += self.velocity
 
     def move_player1(self,keys_pressed):
         if keys_pressed[pygame.K_LEFT]:
-            if self.player1.x - VELOCITY > CANT_CROSS.x:
-                self.player1.x -= VELOCITY
+            if self.player1.x - self.velocity > CANT_CROSS.x:
+                self.player1.x -= self.velocity
         if keys_pressed[pygame.K_RIGHT]:
-            if self.player1.x + VELOCITY + self.player1.width < WIDTH:
-                self.player1.x += VELOCITY
+            if self.player1.x + self.velocity + self.player1.width < WIDTH:
+                self.player1.x += self.velocity
         if keys_pressed[pygame.K_UP]:
-            if self.player1.y - VELOCITY > 0:
-                self.player1.y -= VELOCITY
+            if self.player1.y - self.velocity > 0:
+                self.player1.y -= self.velocity
         if keys_pressed[pygame.K_DOWN]:
-            if self.player1.y + VELOCITY + self.player1.height < HEIGHT - 15:
-                self.player1.y += VELOCITY
+            if self.player1.y + self.velocity + self.player1.height < HEIGHT - 15:
+                self.player1.y += self.velocity
 
     def shoot_bullet(self):
         for bullet in self.player2_bullets:
@@ -396,7 +399,104 @@ class Game:
                             # Quit the game if the quit button is clicked
                             pygame.quit()
                             sys.exit()
+
+    def settings_menu(self):
+        WINDOW.blit(BLACK_BACKGROUND, (0, 0))
+        menu_font = pygame.font.SysFont("impact", 25)
+        menu_text = menu_font.render("Choose your settings!", True, LIME_GREEN)
+        menu_rect = menu_text.get_rect(center=(WIDTH // 2, 100))
+        WINDOW.blit(menu_text, menu_rect)
+        pygame.display.flip()
+
+        settings_text = menu_font.render("Select player health", True, LIME_GREEN)
+        settings_rect = settings_text.get_rect(center=(WIDTH // 2, HEIGHT // 2 - 150))
+        WINDOW.blit(settings_text, settings_rect)
+        pygame.display.flip()
+
+         # Draw health buttons
+        ten_health_button = pygame.Rect(WIDTH // 2 - 250, HEIGHT // 2 - 100, 100, 50)
+        pygame.draw.rect(WINDOW, WHITE, ten_health_button)
+        ten_menu_text = menu_font.render("10 Health", True, BLACK)
+        ten_text_rect = ten_menu_text.get_rect(center=ten_health_button.center)
+        WINDOW.blit(ten_menu_text, ten_text_rect)
+        pygame.display.update()
+
+        twenty_health_button = pygame.Rect(WIDTH // 2 - 50, HEIGHT // 2 - 100, 100, 50)
+        pygame.draw.rect(WINDOW, WHITE, twenty_health_button)
+        twenty_health_menu_text = menu_font.render("20 Health", True, BLACK)
+        twenty_health_menu_text_rect = twenty_health_menu_text.get_rect(center=twenty_health_button.center)
+        WINDOW.blit(twenty_health_menu_text, twenty_health_menu_text_rect)
+        pygame.display.update()
+
+        thrity_health_button = pygame.Rect(WIDTH // 2 + 150, HEIGHT // 2 - 100, 100, 50)
+        pygame.draw.rect(WINDOW, WHITE, thrity_health_button)
+        thrity_health_menu_text = menu_font.render("30 Health", True, BLACK)
+        thrity_health_menu_text_rect = thrity_health_menu_text.get_rect(center=thrity_health_button.center)
+        WINDOW.blit(thrity_health_menu_text, thrity_health_menu_text_rect)
+        pygame.display.update()
+
+
+        speed_text = menu_font.render("Select player speed", True, LIME_GREEN)
+        speed_rect = speed_text.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 50))
+        WINDOW.blit(speed_text, speed_rect)
+        pygame.display.flip()
+
+        # Draw player speed buttons
+
+        regular_speed_button = pygame.Rect(WIDTH // 2 - 250, HEIGHT // 2 + 100, 100, 50)
+        pygame.draw.rect(WINDOW, WHITE, regular_speed_button)
+        regular_speed_text = menu_font.render("Regular", True, BLACK)
+        regular_speed_rect = regular_speed_text.get_rect(center=regular_speed_button.center)
+        WINDOW.blit(regular_speed_text, regular_speed_rect)
+        pygame.display.update()
+
+        fast_speed_button = pygame.Rect(WIDTH // 2 - 50, HEIGHT // 2 + 100, 100, 50)
+        pygame.draw.rect(WINDOW, WHITE, fast_speed_button)
+        fast_speed_text = menu_font.render("Fast", True, BLACK)
+        fast_speed_rect = fast_speed_text.get_rect(center=fast_speed_button.center)
+        WINDOW.blit(fast_speed_text, fast_speed_rect)
+        pygame.display.update()
+
+        ultra_speed_button = pygame.Rect(WIDTH // 2 + 150, HEIGHT // 2 + 100, 100, 50)
+        pygame.draw.rect(WINDOW, WHITE, ultra_speed_button)
+        ultra_speed_text = menu_font.render("Ultra", True, BLACK)
+        ultra_speed_rect = ultra_speed_text.get_rect(center=ultra_speed_button.center)
+        WINDOW.blit(ultra_speed_text, ultra_speed_rect)
+        pygame.display.update()
+
+
+        return_button = pygame.Rect(WIDTH // 2 - 100, HEIGHT // 2 + 300, 200, 50)
+        pygame.draw.rect(WINDOW, WHITE, return_button)
+        return_text = menu_font.render("Return to menu", True, BLACK)
+        return_rect = return_text.get_rect(center=return_button.center)
+        WINDOW.blit(return_text, return_rect)
+        pygame.display.update()
+
+        while True:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if event.button == 1: 
+                        if ten_health_button.collidepoint(event.pos):
+                            self.set_health = 10
                             
+                        elif twenty_health_button.collidepoint(event.pos):
+                            self.set_health = 20
+                            
+                        elif thrity_health_button.collidepoint(event.pos):
+                            self.set_health = 30
+                            
+                        elif regular_speed_button.collidepoint(event.pos):
+                            self.velocity = 10
+                        elif fast_speed_button.collidepoint(event.pos):
+                            self.velocity = 25
+                        elif ultra_speed_button.collidepoint(event.pos):
+                            self.velocity = 35
+                        elif return_button.collidepoint(event.pos):
+                            self.start_menu(self)
+
     def start_menu(self):
         while True:
             for event in pygame.event.get():
@@ -411,7 +511,9 @@ class Game:
                         elif how_to_play_rect.collidepoint(event.pos):
                             self.how_to_play(self)
                             return
-                            
+                        elif settings_button_rect.collidepoint(event.pos):
+                            self.settings_menu(self)
+                            return        
             # Clear the screen
             WINDOW.blit(SPACE9_BACKGROUND, (0, 0))
             
@@ -419,6 +521,7 @@ class Game:
             menu_font = pygame.font.SysFont("impact", 40)
             button_rect = pygame.Rect(WIDTH // 2 - 100, HEIGHT // 2 - 50, 200, 100)
             how_to_play_rect = pygame.Rect(WIDTH // 2 - 100, HEIGHT // 2 + 30, 200, 100)
+            settings_button_rect = pygame.Rect(WIDTH // 2 - 100, HEIGHT // 2 + 110, 200, 100)
 
             # Display "Welcome to Rocket Battle!" at the top of the screen
             title_text = title_font.render("Welcome to Rocket Battle!", True, LIME_GREEN)
@@ -440,6 +543,12 @@ class Game:
             how_to_play_text = menu_font.render("How to Play", True, RED)
             how_to_play_text_rect = how_to_play_text.get_rect(center = how_to_play_rect.center)
             WINDOW.blit(how_to_play_text, how_to_play_text_rect)
+
+            # Draw settings menu button
+            pygame.draw.rect(WINDOW, BLACK, settings_button_rect)
+            settings_text = menu_font.render("Settings", True, RED)
+            settings_text_rect = how_to_play_text.get_rect(center = settings_button_rect.center)
+            WINDOW.blit(settings_text, settings_text_rect)
 
             # Update display
             pygame.display.flip()
