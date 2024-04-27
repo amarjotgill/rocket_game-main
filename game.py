@@ -366,15 +366,23 @@ class Game:
         End_font = pygame.font.SysFont("impact", 80 * self.text_size)
 
         draw = End_font.render(text, True, WHITE)
-        WINDOW.blit(draw, (WIDTH / 2 - draw.get_width() / 2, HEIGHT / 2 - draw.get_height() / 2))
+        WINDOW.blit(draw, (WIDTH / 2 - draw.get_width() / 2, HEIGHT / 2 - 250))
 
         # Draw restart button
-        restart_button = pygame.Rect(WIDTH // 2 - 100, HEIGHT // 2 + 100, 200, 100)
+        restart_button = pygame.Rect(WIDTH // 2 - 100, HEIGHT // 2 - 50, 200, 100)
         pygame.draw.rect(WINDOW, WHITE, restart_button)
         menu_font = pygame.font.SysFont("Impact", 25)
         menu_text = menu_font.render("Play Again?", True, BLACK)
         text_rect = menu_text.get_rect(center=restart_button.center)
         WINDOW.blit(menu_text, text_rect)
+        pygame.display.update()
+
+        menu_button = pygame.Rect(WIDTH // 2 - 100, HEIGHT // 2 + 100, 200, 100)
+        pygame.draw.rect(WINDOW, WHITE, menu_button)
+        menu_font = pygame.font.SysFont("Impact", 25)
+        menu_text = menu_font.render("Return to Menu", True, BLACK)
+        menu_text_rect = menu_text.get_rect(center=menu_button.center)
+        WINDOW.blit(menu_text, menu_text_rect)
         pygame.display.update()
 
         quit_button = pygame.Rect(WIDTH // 2 - 100, HEIGHT // 2 + 250, 200, 100)
@@ -397,6 +405,14 @@ class Game:
                             # Restart the game if the restart button is clicked
                             restart = True
                             self.restart_game(self)
+                        elif menu_button.collidepoint(event.pos):
+                            self.game_status = True
+                            self.player1_bullets = []
+                            self.player2_bullets = []
+                            self.clock = pygame.time.Clock()
+                            self.player1_health = self.set_health
+                            self.player2_health = self.set_health
+                            self.start_menu(self)
                         elif quit_button.collidepoint(event.pos):
                             # Quit the game if the quit button is clicked
                             pygame.quit()
