@@ -28,9 +28,6 @@ CANT_CROSS = pygame.Rect(500, 10, 10, 800)
 PLAYER2_HIT = pygame.USEREVENT + 1
 PLAYER1_HIT = pygame.USEREVENT + 2
 
-HEALTH_FONT = pygame.font.SysFont("impact", 40)
-END_FONT = pygame.font.SysFont("impact", 80)
-
 FPS = 60
 VELOCITY = 10
 BULLET_SPEED = 6
@@ -170,6 +167,7 @@ class Game:
     player1_skin = ""
     player2_skin = ""
     velocity = VELOCITY
+    text_size = 1
  
     def __init__(self):
         return
@@ -286,11 +284,11 @@ class Game:
     def draw_game(self):
         # how to get background
         WINDOW.blit(self.current_background, (0, 0))
-        
+        Health_font = pygame.font.SysFont("impact", 40 * self.text_size)
         # border in middle
         pygame.draw.rect(WINDOW, BLACK, CANT_CROSS)
-        red_health_text = HEALTH_FONT.render("Health:" + str(self.player1_health), True, WHITE)
-        yellow_health_text = HEALTH_FONT.render("Health:" + str(self.player2_health), True, WHITE)
+        red_health_text = Health_font.render("Health:" + str(self.player1_health), True, WHITE)
+        yellow_health_text = Health_font.render("Health:" + str(self.player2_health), True, WHITE)
 
         WINDOW.blit(red_health_text, (WIDTH - red_health_text.get_width() - 10, 10))
         WINDOW.blit(yellow_health_text, (10, 10))
@@ -363,7 +361,11 @@ class Game:
     def winner_of_game(self,text):
         # Set screen to black
         WINDOW.blit(BLACK_BACKGROUND, (0, 0))
-        draw = END_FONT.render(text, True, WHITE)
+
+
+        End_font = pygame.font.SysFont("impact", 80 * self.text_size)
+
+        draw = End_font.render(text, True, WHITE)
         WINDOW.blit(draw, (WIDTH / 2 - draw.get_width() / 2, HEIGHT / 2 - draw.get_height() / 2))
 
         # Draw restart button
@@ -472,6 +474,13 @@ class Game:
         WINDOW.blit(return_text, return_rect)
         pygame.display.update()
 
+        size_button = pygame.Rect(WIDTH // 2 - 100, HEIGHT // 2 + 200, 200, 50)
+        pygame.draw.rect(WINDOW, WHITE, size_button)
+        size_text = menu_font.render("Larger Text", True, BLACK)
+        size_rect = size_text.get_rect(center=size_button.center)
+        WINDOW.blit(size_text, size_rect)
+        pygame.display.update()
+
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -481,19 +490,18 @@ class Game:
                     if event.button == 1: 
                         if ten_health_button.collidepoint(event.pos):
                             self.set_health = 10
-                            
                         elif twenty_health_button.collidepoint(event.pos):
                             self.set_health = 20
-                            
                         elif thrity_health_button.collidepoint(event.pos):
                             self.set_health = 30
-                            
                         elif regular_speed_button.collidepoint(event.pos):
                             self.velocity = 10
                         elif fast_speed_button.collidepoint(event.pos):
                             self.velocity = 25
                         elif ultra_speed_button.collidepoint(event.pos):
                             self.velocity = 35
+                        elif size_button.collidepoint(event.pos):
+                            self.text_size = 2
                         elif return_button.collidepoint(event.pos):
                             self.start_menu(self)
 
@@ -517,8 +525,8 @@ class Game:
             # Clear the screen
             WINDOW.blit(SPACE9_BACKGROUND, (0, 0))
             
-            title_font = pygame.font.SysFont("impact", 80)
-            menu_font = pygame.font.SysFont("impact", 40)
+            title_font = pygame.font.SysFont("impact", 80 * self.text_size)
+            menu_font = pygame.font.SysFont("impact", 40 * self.text_size)
             button_rect = pygame.Rect(WIDTH // 2 - 100, HEIGHT // 2 - 50, 200, 100)
             how_to_play_rect = pygame.Rect(WIDTH // 2 - 100, HEIGHT // 2 + 30, 200, 100)
             settings_button_rect = pygame.Rect(WIDTH // 2 - 100, HEIGHT // 2 + 110, 200, 100)
@@ -594,7 +602,7 @@ class Game:
          # background selection buttons
         button_1 = pygame.Rect(WIDTH // 2 - 350, HEIGHT // 2 - 130, 150, 50)
         pygame.draw.rect(WINDOW, BLACK, button_1)
-        menu_font = pygame.font.SysFont("impact", 25)
+        menu_font = pygame.font.SysFont("impact", 25 * self.text_size)
         menu_text = menu_font.render("Background 1", True, LIME_GREEN)
         text_rect = menu_text.get_rect(center=button_1.center)
         WINDOW.blit(menu_text, text_rect)
@@ -602,7 +610,6 @@ class Game:
 
         button_2 = pygame.Rect(WIDTH // 2 + 150, HEIGHT // 2 - 130, 150, 50)
         pygame.draw.rect(WINDOW, BLACK, button_2)
-        menu_font = pygame.font.SysFont("impact", 25)
         menu_text = menu_font.render("Background 2", True, LIME_GREEN)
         text_rect = menu_text.get_rect(center=button_2.center)
         WINDOW.blit(menu_text, text_rect)
@@ -610,7 +617,6 @@ class Game:
 
         button_3 = pygame.Rect(WIDTH // 2 - 350, HEIGHT // 2 + 90, 150, 50)
         pygame.draw.rect(WINDOW, BLACK, button_3)
-        menu_font = pygame.font.SysFont("impact", 25)
         menu_text = menu_font.render("Background 3", True, LIME_GREEN)
         text_rect = menu_text.get_rect(center=button_3.center)
         WINDOW.blit(menu_text, text_rect)
@@ -618,7 +624,7 @@ class Game:
 
         button_4 = pygame.Rect(WIDTH // 2 + 150, HEIGHT // 2 + 90, 150, 50)
         pygame.draw.rect(WINDOW, BLACK, button_4)
-        menu_font = pygame.font.SysFont("impact", 25)
+    
         menu_text = menu_font.render("Background 4", True, LIME_GREEN)
         text_rect = menu_text.get_rect(center=button_4.center)
         WINDOW.blit(menu_text, text_rect)
@@ -626,7 +632,6 @@ class Game:
 
         button_5 = pygame.Rect(WIDTH // 2 - 350, HEIGHT // 2 + 310, 150, 50)
         pygame.draw.rect(WINDOW, BLACK, button_5)
-        menu_font = pygame.font.SysFont("impact", 25)
         menu_text = menu_font.render("Background 5", True, LIME_GREEN)
         text_rect = menu_text.get_rect(center=button_5.center)
         WINDOW.blit(menu_text, text_rect)
@@ -634,7 +639,6 @@ class Game:
 
         button_6 = pygame.Rect(WIDTH // 2 + 150, HEIGHT // 2 + 310, 150, 50)
         pygame.draw.rect(WINDOW, BLACK, button_6)
-        menu_font = pygame.font.SysFont("impact", 25)
         menu_text = menu_font.render("Background 6", True, LIME_GREEN)
         text_rect = menu_text.get_rect(center=button_6.center)
         WINDOW.blit(menu_text, text_rect)
@@ -672,7 +676,7 @@ class Game:
         
         button_1 = pygame.Rect(WIDTH // 2 - 335, HEIGHT // 2 - 100, 150, 50)
         pygame.draw.rect(WINDOW, BLACK, button_1)
-        menu_font = pygame.font.SysFont("impact", 25)
+        menu_font = pygame.font.SysFont("impact", 25 * self.text_size)
         menu_text = menu_font.render("Ship1", True, LIME_GREEN)
         text_rect = menu_text.get_rect(center=button_1.center)
         WINDOW.blit(menu_text, text_rect)
@@ -680,7 +684,6 @@ class Game:
 
         button_2 = pygame.Rect(WIDTH // 2 + 190, HEIGHT // 2 - 100, 150, 50)
         pygame.draw.rect(WINDOW, BLACK, button_2)
-        menu_font = pygame.font.SysFont("impact", 25)
         menu_text = menu_font.render("Ship2", True, LIME_GREEN)
         text_rect = menu_text.get_rect(center=button_2.center)
         WINDOW.blit(menu_text, text_rect)
@@ -688,7 +691,6 @@ class Game:
 
         button_3 = pygame.Rect(WIDTH // 2 - 335, HEIGHT // 2 + 110, 150, 50)
         pygame.draw.rect(WINDOW, BLACK, button_3)
-        menu_font = pygame.font.SysFont("impact", 25)
         menu_text = menu_font.render("Ship3", True, LIME_GREEN)
         text_rect = menu_text.get_rect(center=button_3.center)
         WINDOW.blit(menu_text, text_rect)
@@ -696,7 +698,6 @@ class Game:
 
         button_4 = pygame.Rect(WIDTH // 2 + 190, HEIGHT // 2 + 110, 150, 50)
         pygame.draw.rect(WINDOW, BLACK, button_4)
-        menu_font = pygame.font.SysFont("impact", 25)
         menu_text = menu_font.render("Ship4", True, LIME_GREEN)
         text_rect = menu_text.get_rect(center=button_4.center)
         WINDOW.blit(menu_text, text_rect)
@@ -704,7 +705,6 @@ class Game:
 
         button_5 = pygame.Rect(WIDTH // 2 - 335, HEIGHT // 2 + 300, 150, 50)
         pygame.draw.rect(WINDOW, BLACK, button_5)
-        menu_font = pygame.font.SysFont("impact", 25)
         menu_text = menu_font.render("Ship5", True, LIME_GREEN)
         text_rect = menu_text.get_rect(center=button_5.center)
         WINDOW.blit(menu_text, text_rect)
@@ -712,7 +712,6 @@ class Game:
 
         button_6 = pygame.Rect(WIDTH // 2 + 190, HEIGHT // 2 + 300, 150, 50)
         pygame.draw.rect(WINDOW, BLACK, button_6)
-        menu_font = pygame.font.SysFont("impact", 25)
         menu_text = menu_font.render("Ship6", True, LIME_GREEN)
         text_rect = menu_text.get_rect(center=button_6.center)
         WINDOW.blit(menu_text, text_rect)
@@ -755,7 +754,7 @@ class Game:
 
 
         while not player2_selected:
-            menu_font = pygame.font.SysFont("impact", 30)
+            menu_font = pygame.font.SysFont("impact", 30 * self.text_size)
             menu_text = menu_font.render("Player2 Choose skin!", True, LIME_GREEN)
             menu_rect = menu_text.get_rect(center=(WIDTH // 2, 250))
             WINDOW.blit(menu_text, menu_rect)
